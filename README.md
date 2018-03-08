@@ -1,65 +1,15 @@
+Project Plan
+===
 
+## Group
 
-Check out this page: https://plus.cs.tut.fi/seitti/2018/static_material/project_work/
-for info on how to have a nice workflow with the project.
+- Name: *Django Reinhardt* (for the [Jazz singer](https://en.wikipedia.org/wiki/Django_Reinhardt))
+- Group code: **g-056**
+- Students in the group:
 
+| Name         | Email                      | Student id |
+|:------------ |:--------------------------:| ----------:|
+| Doruk Gezici | ali.gezici@student.tut.fi  | 278090     |
+| Ilkka Niemi  | ilkka.niemi@student.tut.fi | 201813     |
+| Louis Sugy   | louis.sugy@student.tut.fi  | 273435     |
 
-
-
-
-This readme below is the official Heroku Django template readme.
-
-
-
-
-
-
-# Heroku Django Starter Template
-
-An utterly fantastic project starter template for Django 2.0.
-
-## Features
-
-- Production-ready configuration for Static Files, Database Settings, Gunicorn, etc.
-- Enhancements to Django's static file serving functionality via WhiteNoise.
-- Latest Python 3.6 runtime environment.
-
-## How to Use
-
-To use this project, follow these steps:
-
-1. Create your working environment.
-2. Install Django (`$ pipenv install django`)
-3. Create a new project using this template
-
-## Creating Your Project
-
-Using this template to create a new Django app is easy::
-
-    $ django-admin.py startproject --template=https://github.com/heroku/heroku-django-template/archive/master.zip --name=Procfile helloworld
-
-(If this doesn't work on windows, replace `django-admin.py` with `django-admin`)
-
-You can replace ``helloworld`` with your desired project name.
-
-## Deployment to Heroku
-
-    $ git init
-    $ git add -A
-    $ git commit -m "Initial commit"
-
-    $ heroku create
-    $ git push heroku master
-
-    $ heroku run python manage.py migrate
-
-See also, a [ready-made application](https://github.com/heroku/python-getting-started), ready to deploy.
-
-
-## License: MIT
-
-## Further Reading
-
-- [Gunicorn](https://warehouse.python.org/project/gunicorn/)
-- [WhiteNoise](https://warehouse.python.org/project/whitenoise/)
-- [dj-database-url](https://warehouse.python.org/project/dj-database-url/)
