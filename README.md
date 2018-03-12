@@ -68,24 +68,43 @@ Here is a non-exhaustive list of the optional features we are going to implement
 
 ### 1st week (M 12th - M 18th)
 
-- [ ] Feature
-- [x] Other feature
+- [x] Meet each other, project plan
+- [ ] Set up the project
 
 ### 2nd week (M 19th - M 25th)
 
+- [ ] JS game
 
 ### 3rd week (M 26th - A 1st)
 
+- [ ] User models
+- [ ] Signup and login forms & views
+- [ ] Game and tag models
+- [ ] View to add a new game
+- [ ] View to edit a game
 
 **April 1st: JS Game deadline.**
 
 ### 4th week (A 2nd - A 8th)
 
+- [ ] Simple page to play a game
+- [ ] Advanced features of playing: save & load, scores
+- [ ] Search a game
+- [ ] Simple developer stats
+
 ### 5th week (A 9th - A 15th)
+
+- [ ] Front-end design (responsive)
 
 **April 15th: Testing deadline.**
 
 ### 6th week (A 16th - A 22nd)
+
+- [ ] 3rd party login
+- [ ] Sharing
+- [ ] RESTful API
+- [ ] Enhanced dev stats
+- [ ] Enhanced game search
 
 **April 22nd: Final submission.**
 
