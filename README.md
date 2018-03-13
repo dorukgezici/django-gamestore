@@ -31,14 +31,19 @@ Here are details about some of the features that we will implement (most of the 
 
 ### JavaScript Game
 
-*more details will come later*
-
-We'll use *ExcaliburJS* library.
+We will create a Flappy Bird clone with a bee as the player character instead (ITU's mascot -> Bee).
+- Player has only one move, jump. It will be controlled by a tap on the screen, mouse-click or pressing the space button on the keyboard.
+- There will be randomized obstacles with a small opening in which the player needs to pass through by jumping & falling.
+- Playing the game and staying alive will be hard (Just like regular Flappy Bird).
+- The game will implement the API given in the description.
+- There will be a leaderboard / high score table.
+- The game will be mobile-friendly and screen size will be dynamic.
+- We'll use the front-end game development library *ExcaliburJS* for development.
 
 
 ### Extra features
 
-* We will try to implement all optional features if we have enough time.*
+*We will try to implement all optional features if we have enough time.*
 
 Here is a non-exhaustive list of the optional features we are going to implement:
 
