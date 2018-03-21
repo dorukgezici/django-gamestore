@@ -3,3 +3,4 @@ venv
 *.pyo
 staticfiles
 .env
+.idea/
