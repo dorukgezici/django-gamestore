@@ -76,7 +76,7 @@ Here is a non-exhaustive list of the optional features we are going to implement
 ### 1st week (M 12th - M 18th)
 
 - [x] Meet each other, project plan
-- [ ] Set up the project
+- [x] Set up & deploy the project
 
 ### 2nd week (M 19th - M 25th)
 
