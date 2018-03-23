@@ -1,5 +1,7 @@
-from django.http import HttpResponse
+from django.views import generic
+from .models import Game
 
 
-def dummy_view(request):
-    return HttpResponse("This is the dummy Heroku deployment for group g-056 (Django Reinhardt).", content_type="text/plain")
+class IndexView(generic.ListView):
+    model = Game
+    template_name = "index.html"

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>{% block title %}Django Reinhardt's Game Store{% endblock %}</title>
+    <meta property="og:title" content="Django Reinhardt's Game Store">
+    <meta property="og:description" content="Just another JavaScript Game Store.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://django-reinhardt.herokuapp.com">
+    {% load static %}
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/bootstrap-social.css" %}">
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+    <script src="{% static "js/jquery-3.2.1.min.js" %}"></script>
+</head>
+<body>
+    <div class="content">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a style="position: relative; top: -6px;" class="navbar-brand" href="/">
+                        <img src="{% static "icons/bee-transparent-white.png" %}" style="display: inline-block; height: 95%;">
+                        <span style="display: inline-block;"><strong>Django Reinhardt's Game Store</strong></span>
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        {% url "index" as index_url %}
+                        <li {% if request.path == index_url %}class="active"{% endif %}><a href="{{ index_url }}">Home </a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <script src="{% static "js/tether.min.js" %}"></script>
+        <script src="{% static "js/bootstrap.min.js" %}"></script>
+        <script src="{% static "js/main.js" %}"></script>
+        {% block body %}{% endblock %}
+    </div>
+    <footer class="navbar navbar-default footer">
+        <div class="container">
+            <ul class="nav navbar-nav">
+                <li>Copyright 2018</li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="http://dorukgezici.com" target="_blank">Doruk Gezici</a></li>
+                <li><a href="//github.com/nyrio" target="_blank">Louis Sugy</a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>

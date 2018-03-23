@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Django Reinhardt's Game Store{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% for game in object_list %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">{{ game.name }}</h2>
+                        </div>
+                        <div class="panel-body" style="text-align: center;">
+                            <iframe src="{{ game.url }}" align="middle" width="800" height="600" scrolling="no" frameborder="0"></iframe>
+                        </div>
+                        <div class="panel-footer">
+                            <h4>Developer: {{ game.developer }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <script>
+        $(document).ready(function() {
+            console.log("Document ready!");
+        });
+    </script>
+{% endblock %}
