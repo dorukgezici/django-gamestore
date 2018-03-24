@@ -23,8 +23,6 @@
         {% endfor %}
     </div>
     <script>
-        $(document).ready(function() {
-            console.log("Document ready!");
-        });
+        window.addEventListener("message", receiveMessage, false);
     </script>
 {% endblock %}

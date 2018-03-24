@@ -13,3 +13,58 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+
+function receiveMessage(event) {
+    var message = event.data;
+    console.log(message);
+    switch (message.messageType) {
+        case "SCORE":
+            saveGamescore(message);
+            break;
+        case "SAVE":
+            saveGamestate(message);
+            break;
+        case "LOAD_REQUEST":
+            requestGamestate(message);
+            break;
+        case "LOAD":
+            loadGamestate(message);
+            break;
+        case "ERROR":
+            throwError(message);
+            break;
+        case "SETTING":
+            setSettings(message);
+            break;
+        default:
+            console.log("MessageType not recognized.");
+    }
+}
+
+function saveGamescore(message) {
+
+}
+
+function saveGamestate(message) {
+
+}
+
+
+function requestGamestate(message) {
+
+}
+
+
+function loadGamestate(message) {
+
+}
+
+
+function throwError(message) {
+
+}
+
+
+function setSettings(message) {
+
+}
