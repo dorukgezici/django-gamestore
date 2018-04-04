@@ -2,6 +2,13 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
+class Developer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.username
+
+
 class GameOptions(models.Model):
     width = models.IntegerField(default=800)
     height = models.IntegerField(default=600)
@@ -11,7 +18,7 @@ class GameOptions(models.Model):
 
 
 class Game(models.Model):
-    developer = models.ForeignKey(User, on_delete=models.CASCADE)
+    developer = models.ForeignKey(Developer, on_delete=models.CASCADE)
     name = models.CharField(max_length=150)
     url = models.URLField()
     options = models.ForeignKey(GameOptions, on_delete=models.SET_NULL, blank=True, null=True)
@@ -36,3 +43,11 @@ class GameState(models.Model):
 
     def __str__(self):
         return "{} at {} by {}".format(self.score, self.game, self.player)
+
+
+class Payment(models.Model):
+    player = models.ForeignKey(User, on_delete=models.CASCADE)
+    amount = models.DecimalField(max_digits=9, decimal_places=2)
+
+    def __str__(self):
+        return str(self.player) + ": " + self.amount

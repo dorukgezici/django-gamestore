@@ -1,14 +1,18 @@
 from django.http import JsonResponse
-from gamestore.models import Score, GameState
+from gamestore.models import Score, Game, GameState
 
 
 def save_gamescore(request):
     json = {}
     if request.method == "POST":
         player = request.user
-        game = request.POST["game"]
+        game = Game.objects.first()
         value = request.POST["score"]
-        Score.objects.create(player, game, value)
+        Score.objects.create(
+            player=player,
+            game=game,
+            value=value
+        )
         json["success"] = True
     else:
         json["success"] = False

@@ -1,0 +1,73 @@
+<script>
+    window.addEventListener("message", receiveMessage, false);
+
+    function receiveMessage(event) {
+        var message = event.data;
+        console.log(message);
+        switch (message.messageType) {
+            case "SCORE":
+                saveGamescore(event);
+                break;
+            case "SAVE":
+                saveGamestate(event);
+                break;
+            case "LOAD_REQUEST":
+                requestGamestate(event);
+                break;
+            case "LOAD":
+                loadGamestate(event);
+                break;
+            case "ERROR":
+                throwError(event);
+                break;
+            case "SETTING":
+                setSettings(event);
+                break;
+            default:
+                console.log("MessageType not recognized.");
+        }
+    }
+
+    function saveGamescore(event) {
+        var message = event.data;
+        console.log(event.source.document);
+        $.ajax({
+            url: '{% url "save_gamescore" %}',
+            type: 'POST',
+            data: {
+                "score": message.score,
+                "csrfmiddlewaretoken": getCookie('csrftoken')
+            },
+            success: function(result) {
+                console.log(result);
+            },
+            error: function(result) {
+                console.log(result);
+            }
+        })
+    }
+
+    function saveGamestate(event) {
+
+    }
+
+
+    function requestGamestate(event) {
+
+    }
+
+
+    function loadGamestate(event) {
+
+    }
+
+
+    function throwError(event) {
+
+    }
+
+
+    function setSettings(event) {
+
+    }
+</script>
