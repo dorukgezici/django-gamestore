@@ -48,7 +48,21 @@
     }
 
     function saveGamestate(event) {
-
+        var message = event.data;
+        $.ajax({
+            url: '{% url "save_gamescore" %}',
+            type: 'POST',
+            data: {
+                "score": message.score,
+                "csrfmiddlewaretoken": getCookie('csrftoken')
+            },
+            success: function(result) {
+                console.log(result);
+            },
+            error: function(result) {
+                console.log(result);
+            }
+        })
     }
 
 
@@ -68,6 +82,9 @@
 
 
     function setSettings(event) {
-
+        var options = event.data.message.options;
+        var iframe = event.source;
+        //iframe.style.width = options.width;
+        //iframe.style.height = options.height;
     }
 </script>
