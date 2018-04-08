@@ -1,5 +1,5 @@
 from django.contrib import admin
-from gamestore.models import Developer, Game, GameState, GameOptions, Score, Payment
+from gamestore.models import Developer, Game, GameState, GameOptions, Score, Payment, Item
 
 
 @admin.register(Developer)
@@ -14,6 +14,11 @@ class GameAdmin(admin.ModelAdmin):
 
 @admin.register(GameState)
 class GameStateAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Item)
+class ItemAdmin(admin.ModelAdmin):
     pass
 
 

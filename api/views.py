@@ -1,12 +1,13 @@
 from django.http import JsonResponse
-from gamestore.models import Score, Game, GameState
+from gamestore.models import Score, Game, GameState, Item
 
 
 def save_gamescore(request):
-    json = {}
+    json = {"operation": "SCORE"}
     if request.method == "POST":
         player = request.user
-        game = Game.objects.first()
+        game_id = request.POST["gameId"]
+        game = Game.objects.get(id=game_id)
         value = request.POST["score"]
         Score.objects.create(
             player=player,
@@ -20,13 +21,21 @@ def save_gamescore(request):
 
 
 def save_gamestate(request):
-    json = {}
+    json = {"operation": "SAVE"}
     if request.method == "POST":
-        game_state = request.POST["gameState"]
         player = request.user
-        game = request.POST["game"]
-        score = game_state["score"]
-        GameState.objects.create(player, game, score)
+        game_id = request.POST["gameId"]
+        game = Game.objects.get(id=game_id)
+        score = request.POST["gameState[score]"]
+        player_items = request.POST.get("gameState[playerItems]", [])
+        obj = GameState.objects.create(
+            player=player,
+            game=game,
+            score=score
+        )
+        for item in player_items:
+            item_obj = Item.objects.get_or_create(name=item, game_state=obj)
+            obj.item_set.add(item_obj)
         json["success"] = True
     else:
         json["success"] = False
@@ -49,8 +58,3 @@ def load_gamestate(request, game):
                 "info": "Gamestate could not be loaded."
             }
         return JsonResponse(json)
-
-
-def set_settings(request):
-    json = {}
-    return JsonResponse(json)

@@ -45,6 +45,15 @@ class GameState(models.Model):
         return "{} at {} by {}".format(self.score, self.game, self.player)
 
 
+# Used as an array field for GameState: state.item_set
+class Item(models.Model):
+    game_state = models.ForeignKey(GameState, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
+
 class Payment(models.Model):
     player = models.ForeignKey(User, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=9, decimal_places=2)

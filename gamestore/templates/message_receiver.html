@@ -1,9 +1,10 @@
 <script>
     window.addEventListener("message", receiveMessage, false);
+    var gameFrame = $("#game-" + gameId);
 
     function receiveMessage(event) {
         var message = event.data;
-        console.log(message);
+        console.log("PostMessage received: ", message);
         switch (message.messageType) {
             case "SCORE":
                 saveGamescore(event);
@@ -30,19 +31,19 @@
 
     function saveGamescore(event) {
         var message = event.data;
-        console.log(event.source.document);
         $.ajax({
             url: '{% url "save_gamescore" %}',
             type: 'POST',
             data: {
+                "gameId": gameId,
                 "score": message.score,
                 "csrfmiddlewaretoken": getCookie('csrftoken')
             },
             success: function(result) {
-                console.log(result);
+                console.log("SUCCESS: ", result);
             },
             error: function(result) {
-                console.log(result);
+                console.log("ERROR: ", result);
             }
         })
     }
@@ -50,17 +51,21 @@
     function saveGamestate(event) {
         var message = event.data;
         $.ajax({
-            url: '{% url "save_gamescore" %}',
+            url: '{% url "save_gamestate" %}',
             type: 'POST',
             data: {
-                "score": message.score,
+                "gameId": gameId,
+                "gameState": {
+                    "score": message.gameState.score,
+                    "playerItems": message.gameState.playerItems
+                },
                 "csrfmiddlewaretoken": getCookie('csrftoken')
             },
             success: function(result) {
-                console.log(result);
+                console.log("SUCCESS: ", result);
             },
             error: function(result) {
-                console.log(result);
+                console.log("ERROR: ", result);
             }
         })
     }
@@ -82,9 +87,7 @@
 
 
     function setSettings(event) {
-        var options = event.data.message.options;
-        var iframe = event.source;
-        //iframe.style.width = options.width;
-        //iframe.style.height = options.height;
+        var options = event.data.options;
+        gameFrame.height(options.height).width(options.width);
     }
 </script>
