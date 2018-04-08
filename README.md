@@ -80,21 +80,21 @@ Here is a non-exhaustive list of the optional features we are going to implement
 
 ### 2nd week (M 19th - M 25th)
 
-- [ ] JS game
+- [x] JS game
 
 ### 3rd week (M 26th - A 1st)
 
-- [ ] User models
+- [x] User models
 - [ ] Signup and login forms & views
 - [ ] Game and tag models
 - [ ] View to add a new game
 - [ ] View to edit a game
 
-**April 1st: JS Game deadline.**
+**April 5th: JS Game deadline.**
 
 ### 4th week (A 2nd - A 8th)
 
-- [ ] Simple page to play a game
+- [x] Simple page to play a game
 - [ ] Advanced features of playing: save & load, scores
 - [ ] Search a game
 - [ ] Simple developer stats
@@ -109,10 +109,9 @@ Here is a non-exhaustive list of the optional features we are going to implement
 
 - [ ] 3rd party login
 - [ ] Sharing
-- [ ] RESTful API
 - [ ] Enhanced dev stats
 - [ ] Enhanced game search
 
-**April 22nd: Final submission.**
+**April 26th: Final submission.**
 
-**April 22nd - 28th: Project demonstrations.**
+**April 26th - 28th: Project demonstrations.**
