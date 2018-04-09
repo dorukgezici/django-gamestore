@@ -9,19 +9,11 @@ class Developer(models.Model):
         return self.user.username
 
 
-class GameOptions(models.Model):
-    width = models.IntegerField(default=800)
-    height = models.IntegerField(default=600)
-
-    def __str__(self):
-        return "{}x{}".format(self.width, self.height)
-
-
 class Game(models.Model):
     developer = models.ForeignKey(Developer, on_delete=models.CASCADE)
     name = models.CharField(max_length=150)
     url = models.URLField()
-    options = models.ForeignKey(GameOptions, on_delete=models.SET_NULL, blank=True, null=True)
+    cover = models.ImageField(blank=True, null=True, upload_to="covers")
 
     def __str__(self):
         return self.name
@@ -32,26 +24,24 @@ class Score(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     value = models.FloatField()
 
+    class Meta:
+        ordering = ['value']
+
     def __str__(self):
-        return "{} at {} by {}".format(self.value, self.game, self.player)
+        return "{} by {}".format(self.value, self.player)
 
 
 class GameState(models.Model):
     player = models.ForeignKey(User, on_delete=models.CASCADE)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
-    score = models.FloatField()
+    data = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-date']
 
     def __str__(self):
-        return "{} at {} by {}".format(self.score, self.game, self.player)
-
-
-# Used as an array field for GameState: state.item_set
-class Item(models.Model):
-    game_state = models.ForeignKey(GameState, on_delete=models.CASCADE)
-    name = models.CharField(max_length=200)
-
-    def __str__(self):
-        return self.name
+        return "{}: {} by {}".format(self.date, self.game, self.player)
 
 
 class Payment(models.Model):

@@ -1,9 +1,12 @@
 from django.http import JsonResponse
-from gamestore.models import Score, Game, GameState, Item
+from django.contrib.auth.decorators import login_required
+from gamestore.models import Score, Game, GameState
+import json
 
 
+@login_required
 def save_gamescore(request):
-    json = {"operation": "SCORE"}
+    data = {"operation": "SCORE"}
     if request.method == "POST":
         player = request.user
         game_id = request.POST["gameId"]
@@ -14,47 +17,47 @@ def save_gamescore(request):
             game=game,
             value=value
         )
-        json["success"] = True
+        data["success"] = True
     else:
-        json["success"] = False
-    return JsonResponse(json)
+        data["success"] = False
+    return JsonResponse(data)
 
 
+@login_required
 def save_gamestate(request):
-    json = {"operation": "SAVE"}
+    data = {"operation": "SAVE"}
     if request.method == "POST":
         player = request.user
         game_id = request.POST["gameId"]
         game = Game.objects.get(id=game_id)
-        score = request.POST["gameState[score]"]
-        player_items = request.POST.get("gameState[playerItems]", [])
-        obj = GameState.objects.create(
+        GameState.objects.create(
             player=player,
             game=game,
-            score=score
+            data=request.POST["gameState"]
         )
-        for item in player_items:
-            item_obj = Item.objects.get_or_create(name=item, game_state=obj)
-            obj.item_set.add(item_obj)
-        json["success"] = True
+        data["success"] = True
     else:
-        json["success"] = False
-    return JsonResponse(json)
+        data["success"] = False
+    return JsonResponse(data)
 
 
-def load_gamestate(request, game):
-    if request.method == "GET":
+@login_required
+def load_gamestate(request):
+    if request.method == "POST":
+        player = request.user
+        game_id = request.POST["gameId"]
+        game = Game.objects.get(id=game_id)
         try:
-            game_state = GameState.objects.get(player=request.user, game=game).last()
-            json = {
+            game_state = GameState.objects.filter(player=player, game=game).first()
+            if not game_state:
+                raise GameState.DoesNotExist
+            data = {
                 "messageType": "LOAD",
-                "gameState": {
-                    "score": game_state.score
-                }
+                "gameState": json.loads(game_state.data)
             }
         except GameState.DoesNotExist:
-            json = {
+            data = {
                 "messageType": "ERROR",
                 "info": "Gamestate could not be loaded."
             }
-        return JsonResponse(json)
+        return JsonResponse(data)

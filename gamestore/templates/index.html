@@ -12,9 +12,19 @@
                         <div class="panel-heading">
                             <h2 class="panel-title"><a href="{% url "game" game.id %}">{{ game.name }}</a></h2>
                         </div>
-                        <div class="panel-body" style="text-align: center;">
-                            <img src="{% static "icons/bee-transparent-white.png" %}" alt="">
-                        </div>
+                        {% if game.cover %}
+                            <div class="panel-body" style="text-align: center;">
+                                <img src="{{ game.cover.url }}" class="img img-responsive" alt="Game Cover">
+                            </div>
+                        {% endif %}
+                        {% if game.scores %}
+                            <div class="panel-body">
+                                <h3>Leaderboard</h3>
+                                {% for score in game.scores %}
+                                    <p>#{{ forloop.counter }}: {{ score.value }} by <b>{{ score.player }}</b></p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
                         <div class="panel-footer">
                             <h4>Developer: {{ game.developer }}</h4>
                         </div>
@@ -23,5 +33,4 @@
             </div>
         {% endfor %}
     </div>
-    {% include "message_receiver.html" %}
 {% endblock %}

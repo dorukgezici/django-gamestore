@@ -15,12 +15,6 @@
             case "LOAD_REQUEST":
                 requestGamestate(event);
                 break;
-            case "LOAD":
-                loadGamestate(event);
-                break;
-            case "ERROR":
-                throwError(event);
-                break;
             case "SETTING":
                 setSettings(event);
                 break;
@@ -55,10 +49,7 @@
             type: 'POST',
             data: {
                 "gameId": gameId,
-                "gameState": {
-                    "score": message.gameState.score,
-                    "playerItems": message.gameState.playerItems
-                },
+                "gameState": JSON.stringify(message.gameState),
                 "csrfmiddlewaretoken": getCookie('csrftoken')
             },
             success: function(result) {
@@ -70,21 +61,32 @@
         })
     }
 
-
     function requestGamestate(event) {
-
+        $.ajax({
+            url: '{% url "load_gamestate" %}',
+            type: 'POST',
+            data: {
+                "gameId": gameId,
+                "csrfmiddlewaretoken": getCookie('csrftoken')
+            },
+            success: function(result) {
+                loadGamestate(result);
+            },
+            error: function(result) {
+                throwError(result);
+            }
+        })
     }
 
-
-    function loadGamestate(event) {
-
+    function loadGamestate(message) {
+        console.log("LOAD REQUEST SUCCESS: ", message);
+        gameFrame.get(0).contentWindow.postMessage(message, "*");
     }
 
-
-    function throwError(event) {
-
+    function throwError(message) {
+        console.log("LOAD REQUEST ERROR: ", message);
+        gameFrame.get(0).contentWindow.postMessage(message, "*");
     }
-
 
     function setSettings(event) {
         var options = event.data.options;
