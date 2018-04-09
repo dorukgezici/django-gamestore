@@ -4,3 +4,5 @@ venv
 staticfiles
 .env
 .idea/
+migrations/
+__pycache__/
