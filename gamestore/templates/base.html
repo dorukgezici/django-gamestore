@@ -34,6 +34,8 @@
                     <ul class="nav navbar-nav">
                         {% url "index" as index_url %}
                         <li {% if request.path == index_url %}class="active"{% endif %}><a href="{{ index_url }}">Home </a></li>
+                        {% url "game_create" as game_create_url %}
+                        <li {% if request.path == game_create_url %}class="active"{% endif %}><a href="{{ game_create_url }}">Add Game </a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {% if request.user.is_authenticated %}

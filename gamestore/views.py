@@ -26,6 +26,12 @@ class GameView(generic.DetailView):
     template_name = "game.html"
 
 
+class GameCreateView(generic.CreateView):
+    model = Game
+    fields = ["name", "url", "cover"]
+    template_name = "game_create.html"
+
+
 class PayView(generic.CreateView):
     form_class = PaymentForm
     template_name = "pay.html"
