@@ -1,10 +1,11 @@
 from django.contrib.auth import authenticate, login
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views import generic
 from hashlib import md5
 import random
 from .forms import PaymentForm, CustomUserCreationForm
-from .models import Game, Score
+from .models import Game, Score, Developer
 
 
 class IndexView(generic.ListView):
@@ -28,8 +29,24 @@ class GameView(generic.DetailView):
 
 class GameCreateView(generic.CreateView):
     model = Game
-    fields = ["name", "url", "cover"]
+    fields = ["name", "url", "cover", "developer"]
     template_name = "game_create.html"
+    success_url = "/"
+
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect("/accounts/login")
+        else:
+            return super().get(request, *args, **kwargs)
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        if self.request.method == "POST":
+            developer, _ = Developer.objects.get_or_create(user=self.request.user)
+            post_data = kwargs["data"].copy()
+            post_data["developer"] = developer.id
+            kwargs["data"] = post_data
+        return kwargs
 
 
 class PayView(generic.CreateView):
