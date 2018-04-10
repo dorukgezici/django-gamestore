@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # http://whitenoise.evans.io/en/stable/django.html#using-whitenoise-in-development
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
+    'bootstrapform',
     'gamestore',
     'api'
 ]
@@ -95,6 +96,9 @@ DATABASES = {
         'NAME': 'wsd2018project'
         # if you want to define user, password etc.
         # do it here
+    }, 'sqlite3': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
     }
 }
 
