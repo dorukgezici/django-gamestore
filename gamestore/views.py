@@ -1,8 +1,9 @@
+from django.contrib.auth import authenticate, login
 from django.shortcuts import render
 from django.views import generic
 from hashlib import md5
 import random
-from .forms import PaymentForm
+from .forms import PaymentForm, CustomUserCreationForm
 from .models import Game, Score
 
 
@@ -53,3 +54,15 @@ def pay(request):
 
 def example_game(request):
     return render(request, "example_game.html")
+
+
+class RegistrationView(generic.FormView):
+    form_class = CustomUserCreationForm
+    template_name = "registration/signup.html"
+    success_url = "/"
+
+    def form_valid(self, form):
+        form.save()
+        user = authenticate(username=form.cleaned_data["username"], password=form.cleaned_data["password1"])
+        login(self.request, user)
+        return super().form_valid(form)
