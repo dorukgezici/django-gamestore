@@ -25,17 +25,18 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a style="position: relative; top: -6px;" class="navbar-brand" href="/">
-                        <img src="{% static "icons/bee-transparent-white.png" %}" style="display: inline-block; height: 95%;">
-                        <span style="display: inline-block;"><strong>Django Reinhardt's Game Store</strong></span>
+                    <a class="navbar-brand" href="/">
+                        <strong>Django Reinhardt's Game Store</strong>
                     </a>
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         {% url "index" as index_url %}
-                        <li {% if request.path == index_url %}class="active"{% endif %}><a href="{{ index_url }}">Home </a></li>
+                        <li {% if request.path == index_url %}class="active"{% endif %}><a href="{{ index_url }}">Home</a></li>
                         {% url "game_create" as game_create_url %}
-                        <li {% if request.path == game_create_url %}class="active"{% endif %}><a href="{{ game_create_url }}">Add Game </a></li>
+                        <li {% if request.path == game_create_url %}class="active"{% endif %}><a href="{{ game_create_url }}">Add Game</a></li>
+                        {% url "pay" as pay_url %}
+                        <li {% if request.path == pay_url %}class="active"{% endif %}><a href="{{ pay_url }}">Pay</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {% if request.user.is_authenticated %}

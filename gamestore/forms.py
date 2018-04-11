@@ -9,7 +9,8 @@ class PaymentForm(forms.ModelForm):
         model = Payment
         exclude = []
         widgets = {
-            "player": forms.HiddenInput()
+            "player": forms.HiddenInput(),
+            "game": forms.HiddenInput()
         }
 
 

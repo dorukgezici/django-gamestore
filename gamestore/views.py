@@ -55,6 +55,11 @@ class PayView(generic.CreateView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
+        if self.request.method == "POST":
+            post_data = kwargs["data"].copy()
+            post_data["sid"] = self.request.user.id
+            post_data["pid"]
+            kwargs["data"] = post_data
         return kwargs
 
     def form_valid(self, form):

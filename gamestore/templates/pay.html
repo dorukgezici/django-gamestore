@@ -1,9 +1,16 @@
 {% extends "base.html" %}
+{% load bootstrap %}
 
 {% block body %}
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+                <form action="https://simplepayments.herokuapp.com/pay/" method="POST">
+                    {% csrf_token %}
+                    {{ form|bootstrap }}
+                    <button class="btn btn-primary">Pay</button>
+                </form>
+                <br><br>
                 <form action="https://simplepayments.herokuapp.com/pay/" method="POST">
                     {% csrf_token %}
                     <input type="hidden" name="pid" value="{{ form.id }}">
