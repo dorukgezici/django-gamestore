@@ -1,9 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
-from gamestore.models import Payment, Game, Tag
-
-from tags_input import fields, widgets
+from gamestore.models import Payment, Game
 
 
 class PaymentForm(forms.ModelForm):
@@ -15,14 +13,14 @@ class PaymentForm(forms.ModelForm):
         }
 
 class CreateGameForm(forms.ModelForm):
-    tags = fields.TagsInputField( Tag.objects.all(),
-                                  create_missing=True,
-                                  required=False)
+    #tags = fields.TagsInputField( Tag.objects.all(),
+    #                              create_missing=True,
+    #                              required=False)
     class Meta:
         model = Game
         fields = ["developer", "name", "url", "cover", "tags"]
         widgets = {
-            "tags": widgets.TagsInputWidget
+            #"tags": widgets.TagsInputWidget
         }
 
 

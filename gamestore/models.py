@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from taggit.managers import TaggableManager
 
 
 class Developer(models.Model):
@@ -9,24 +10,13 @@ class Developer(models.Model):
         return self.user.username
 
 
-class Tag(models.Model):
-    name = models.CharField(max_length=30)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        ordering = ('name',)
-
-
 class Game(models.Model):
     developer = models.ForeignKey(Developer, on_delete=models.CASCADE)
     name = models.CharField(max_length=150)
     url = models.URLField()
     cover = models.ImageField(blank=True, null=True, upload_to="covers")
-    tags = models.ManyToManyField(Tag, blank=True,
-         related_name="games",
-         verbose_name='Tags', help_text='Missing items will be auto-created')
+    tags = TaggableManager(blank=True, verbose_name="Tags",
+                           help_text="A comma-separated list of tags.")
 
     def __str__(self):
         return self.name

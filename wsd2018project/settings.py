@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'bootstrapform',
-    'tags_input',
+    'taggit',
     'gamestore',
     'api'
 ]
@@ -163,10 +163,5 @@ MEDIA_URL = '/media/'
 # Activate Django-Heroku.
 django_heroku.settings(locals())
 
-
-TAGS_INPUT_MAPPINGS = {
-    'gamestore.Tag': {
-        'field': 'name',
-        'create_missing': True,
-    },
-}
+# Taggit settings
+TAGGIT_CASE_INSENSITIVE = True
