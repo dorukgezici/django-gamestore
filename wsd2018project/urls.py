@@ -15,7 +15,8 @@ urlpatterns = [
     path('accounts/reset-password-complete', auth_views.PasswordResetCompleteView.as_view(),
          name='password_reset_complete'),
     path('', include('gamestore.urls')),
-    path('api/', include('api.urls'))
+    path('api/', include('api.urls')),
+    path(r'^tags_input/', include('tags_input.urls', namespace='tags_input')),
 ]
 
 urlpatterns += [

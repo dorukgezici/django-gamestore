@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import platform
 import dj_database_url
 import django_heroku
 
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'bootstrapform',
+    'tags_input',
     'gamestore',
     'api'
 ]
@@ -82,25 +84,30 @@ WSGI_APPLICATION = 'wsd2018project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        # the default database that "ships with" Django is sqlite
-        # that is, however, not something you would be using with a
-        # real production site. for that reason we're goingo to use
-        # the industry standard PostgreSQL
-
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'wsd2018project'
-        # if you want to define user, password etc.
-        # do it here
-    }, 'sqlite3': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
+if platform.system() == "Windows":
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            # the default database that "ships with" Django is sqlite
+            # that is, however, not something you would be using with a
+            # real production site. for that reason we're goingo to use
+            # the industry standard PostgreSQL
+
+            # 'ENGINE': 'django.db.backends.sqlite3',
+            # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'wsd2018project'
+            # if you want to define user, password etc.
+            # do it here
+        }
+    }
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -153,9 +160,13 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
 MEDIA_URL = '/media/'
 
-LOGIN_REDIRECT_URL = "/"
-LOGIN_URL = 'login'
-LOGOUT_URL = 'logout'
-
 # Activate Django-Heroku.
 django_heroku.settings(locals())
+
+
+TAGS_INPUT_MAPPINGS = {
+    'gamestore.Tag': {
+        'field': 'name',
+        'create_missing': True,
+    },
+}
