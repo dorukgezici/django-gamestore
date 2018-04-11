@@ -43,9 +43,9 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'bootstrapform',
-    'taggit',
     'gamestore',
-    'api'
+    'api',
+    'ajax_select',
 ]
 
 MIDDLEWARE = [
@@ -162,6 +162,3 @@ MEDIA_URL = '/media/'
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
-
-# Taggit settings
-TAGGIT_CASE_INSENSITIVE = True

@@ -3,6 +3,7 @@ from django.urls import include, path, re_path
 from django.conf import settings
 from django.contrib.auth import views as auth_views
 from django.views.static import serve
+from ajax_select import urls as ajax_select_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -16,7 +17,8 @@ urlpatterns = [
          name='password_reset_complete'),
     path('', include('gamestore.urls')),
     path('api/', include('api.urls')),
-    path(r'^tags_input/', include('tags_input.urls', namespace='tags_input')),
+    
+    path(r'^ajax_select/', include(ajax_select_urls)),
 ]
 
 urlpatterns += [

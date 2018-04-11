@@ -3,6 +3,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 from gamestore.models import Payment, Game
 
+from ajax_select.fields import AutoCompleteSelectMultipleField
+
 
 class PaymentForm(forms.ModelForm):
     class Meta:
@@ -13,15 +15,11 @@ class PaymentForm(forms.ModelForm):
         }
 
 class CreateGameForm(forms.ModelForm):
-    #tags = fields.TagsInputField( Tag.objects.all(),
-    #                              create_missing=True,
-    #                              required=False)
+    tags = AutoCompleteSelectMultipleField('tags', required=False)
+
     class Meta:
         model = Game
         fields = ["developer", "name", "url", "cover", "tags"]
-        widgets = {
-            #"tags": widgets.TagsInputWidget
-        }
 
 
 class CustomUserCreationForm(UserCreationForm):

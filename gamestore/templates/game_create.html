@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{{ form.media }}
 
 {% block body %}
     <div class="container">
@@ -15,5 +16,4 @@
         var gameId = "{{ game.id }}";
         console.log("GameID: ", gameId);
     </script>
-    {% include "message_receiver.html" %}
 {% endblock %}
