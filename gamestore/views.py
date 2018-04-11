@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.views import generic
 from hashlib import md5
 import random
-from .forms import PaymentForm, CustomUserCreationForm
+from .forms import PaymentForm, CustomUserCreationForm, CreateGameForm
 from .models import Game, Score, Developer
 
 
@@ -27,9 +27,8 @@ class GameView(generic.DetailView):
     template_name = "game.html"
 
 
-class GameCreateView(generic.CreateView):
-    model = Game
-    fields = ["name", "url", "cover", "developer"]
+class GameCreateView(generic.FormView):
+    form_class = CreateGameForm
     template_name = "game_create.html"
     success_url = "/"
 
@@ -39,14 +38,9 @@ class GameCreateView(generic.CreateView):
         else:
             return super().get(request, *args, **kwargs)
 
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        if self.request.method == "POST":
-            developer, _ = Developer.objects.get_or_create(user=self.request.user)
-            post_data = kwargs["data"].copy()
-            post_data["developer"] = developer.id
-            kwargs["data"] = post_data
-        return kwargs
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
 
 
 class PayView(generic.CreateView):
