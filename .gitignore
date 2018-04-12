@@ -6,3 +6,5 @@ staticfiles
 .idea/
 __pycache__/
 db.sqlite3
+
+wsd2018project/media/covers/

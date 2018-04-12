@@ -24,19 +24,6 @@
                                 <img src="{{ game.cover.url }}" style="max-height: 200px;" class="img img-responsive center-block" alt="Game Cover">
                             </div>
                         {% endif %}
-                        {% if game.scores %}
-                            <div class="panel-body">
-                                <h3 style="display: inline-block;">Leaderboard</h3>
-                                {% if game.scores|length >= 4 %}
-                                    <a style="display: inline-block; float: right; margin-top: 25px;" href="javascript:showLeaderboard({{ game.scores_array }}, '{{ game.name }}');"><small>Show all of the leaderboard</small></a>
-                                {% endif %}
-                                {% for score in game.scores %}
-                                    {% if forloop.counter < 4 %}
-                                        <p>#{{ forloop.counter }}: {{ score.value }} by <b>{{ score.player }}</b></p>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                        {% endif %}
                         <div class="panel-footer">
                             <div class="row">
                                 <div class="col-md-5">

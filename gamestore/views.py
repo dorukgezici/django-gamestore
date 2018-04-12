@@ -12,16 +12,6 @@ class IndexView(generic.ListView):
     model = Game
     template_name = "index.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        objects = self.object_list
-        for obj in objects:
-            scores = Score.objects.filter(game=obj).order_by("-value")
-            obj.scores = scores
-            obj.scores_array = ["#{}: {} by {}".format(i, score.value, score.player) for i, score in enumerate(scores)]
-        context["object_list"] = objects
-        return context
-
 
 class GameView(generic.DetailView):
     model = Game
@@ -32,6 +22,7 @@ class GameView(generic.DetailView):
         obj = context["object"]
         scores = Score.objects.filter(game=obj)
         obj.scores = scores
+        obj.scores_array = ["#{}: {} by {}".format(i, score.value, score.player) for i, score in enumerate(scores)]
         context["object"] = obj
         return context
 
