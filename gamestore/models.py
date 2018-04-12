@@ -21,6 +21,7 @@ class Game(models.Model):
     name = models.CharField(max_length=150)
     url = models.URLField()
     cover = models.ImageField(blank=True, null=True, upload_to="covers")
+    price = models.IntegerField(default=0)
     tags = models.ManyToManyField(Tag, blank=True, verbose_name="Tags")
 
     def __str__(self):

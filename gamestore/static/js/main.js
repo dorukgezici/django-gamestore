@@ -13,3 +13,9 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+
+function showLeaderboard(gameScores, game) {
+    var leaderboard = "Leaderboard for " + game + "\n\n";
+    leaderboard += gameScores.join("\n");
+    alert(leaderboard);
+}

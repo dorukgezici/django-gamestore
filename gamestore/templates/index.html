@@ -5,24 +5,54 @@
 
 {% block body %}
     <div class="container">
-        {% for game in object_list %}
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="panel panel-primary">
+        <div class="panel-group">
+            {% for game in object_list %}
+                <div class="col-md-6">
+                    <div class="panel panel-primary" style="margin-bottom: 20px;">
                         <div class="panel-heading">
-                            <h2 class="panel-title"><a href="{% url "game" game.id %}">{{ game.name }}</a></h2>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h2 class="panel-title"><a href="{% url "game" game.id %}">{{ game.name }}</a></h2>
+                                </div>
+                                <div class="col-md-4">
+                                    <h2 class="panel-title" style="float: right;">Price: {{ game.price }}$</h2>
+                                </div>
+                            </div>
                         </div>
                         {% if game.cover %}
-                            <div class="panel-body" style="text-align: center;">
-                                <img src="{{ game.cover.url }}" class="img img-responsive" alt="Game Cover">
+                            <div class="panel-body" style="height: 200px;">
+                                <img src="{{ game.cover.url }}" style="max-height: 200px;" class="img img-responsive center-block" alt="Game Cover">
+                            </div>
+                        {% endif %}
+                        {% if game.scores %}
+                            <div class="panel-body">
+                                <h3 style="display: inline-block;">Leaderboard</h3>
+                                {% if game.scores|length >= 4 %}
+                                    <a style="display: inline-block; float: right; margin-top: 25px;" href="javascript:showLeaderboard({{ game.scores_array }}, '{{ game.name }}');"><small>Show all of the leaderboard</small></a>
+                                {% endif %}
+                                {% for score in game.scores %}
+                                    {% if forloop.counter < 4 %}
+                                        <p>#{{ forloop.counter }}: {{ score.value }} by <b>{{ score.player }}</b></p>
+                                    {% endif %}
+                                {% endfor %}
                             </div>
                         {% endif %}
                         <div class="panel-footer">
-                            <h4>Developer: {{ game.developer }}</h4>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <h4>Developer: {{ game.developer }}</h4>
+                                </div>
+                                <div class="col-md-3">
+
+                                </div>
+                                <div class="col-md-4">
+                                    <button id="pay-button" class="btn btn-primary" style="float: right;">BUY FOR {{ game.price }}$</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}

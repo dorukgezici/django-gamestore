@@ -11,6 +11,7 @@
                     <button class="btn btn-primary">Pay</button>
                 </form>
                 <br><br>
+                {% comment %}
                 <form action="https://simplepayments.herokuapp.com/pay/" method="POST">
                     {% csrf_token %}
                     <input type="hidden" name="pid" value="{{ form.id }}">
@@ -28,6 +29,7 @@
                     <input type="text" id="id_amount" name="amount" value="5" />
                     <input type="submit" value="Accept Payment"/>
                 </form>
+                {% endcomment %}
             </div>
         </div>
     </div>
