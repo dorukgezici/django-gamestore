@@ -12,6 +12,14 @@
                         <div class="panel-body" style="text-align: center;">
                             <iframe id="game-{{ game.id }}" src="{{ game.url }}" align="middle" width="100%" height="600" scrolling="no" frameborder="0"></iframe>
                         </div>
+                        {% if game.scores %}
+                            <div class="panel-body">
+                                <h3>Leaderboard</h3>
+                                {% for score in game.scores|dictsortreversed:"value" %}
+                                    <p>#{{ forloop.counter }}: {{ score.value }} by <b>{{ score.player }}</b></p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
                         <div class="panel-footer">
                             <h4>Developer: {{ game.developer }}</h4>
                         </div>
