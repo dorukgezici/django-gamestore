@@ -160,6 +160,8 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
 MEDIA_URL = '/media/'
 
+LOGIN_REDIRECT_URL = "/"
+
 # Activate Django-Heroku.
 django_heroku.settings(locals())
 
