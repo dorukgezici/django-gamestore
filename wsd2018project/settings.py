@@ -42,10 +42,10 @@ INSTALLED_APPS = [
     # http://whitenoise.evans.io/en/stable/django.html#using-whitenoise-in-development
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
+    'ajax_select',
     'bootstrapform',
     'gamestore',
     'api',
-    'ajax_select',
 ]
 
 MIDDLEWARE = [
@@ -162,3 +162,6 @@ MEDIA_URL = '/media/'
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
+
+# django-ajax-selects settings
+AJAX_SELECT_BOOTSTRAP = False
