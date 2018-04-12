@@ -85,9 +85,9 @@ Here is a non-exhaustive list of the optional features we are going to implement
 ### 3rd week (M 26th - A 1st)
 
 - [x] User models
-- [ ] Signup and login forms & views
+- [x] Signup and login forms & views
 - [ ] Game and tag models
-- [ ] View to add a new game
+- [x] View to add a new game
 - [ ] View to edit a game
 
 **April 5th: JS Game deadline.**
@@ -95,7 +95,7 @@ Here is a non-exhaustive list of the optional features we are going to implement
 ### 4th week (A 2nd - A 8th)
 
 - [x] Simple page to play a game
-- [ ] Advanced features of playing: save & load, scores
+- [x] Advanced features of playing: save & load, scores
 - [ ] Search a game
 - [ ] Simple developer stats
 

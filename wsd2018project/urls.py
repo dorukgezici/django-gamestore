@@ -17,8 +17,7 @@ urlpatterns = [
          name='password_reset_complete'),
     path('', include('gamestore.urls')),
     path('api/', include('api.urls')),
-    
-    path(r'^ajax_select/', include(ajax_select_urls)),
+    path('ajax_select/', include(ajax_select_urls))
 ]
 
 urlpatterns += [

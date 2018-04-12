@@ -17,6 +17,7 @@ django-heroku = "*"
 gunicorn = "*"
 Pillow = "*"
 django-bootstrap-form = "*"
+django-ajax-selects = "*"
 
 [dev-packages]
 

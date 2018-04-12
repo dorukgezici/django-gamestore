@@ -15,6 +15,7 @@ class PaymentForm(forms.ModelForm):
             "game": forms.HiddenInput()
         }
 
+
 class CreateGameForm(forms.ModelForm):
     tags = AutoCompleteSelectMultipleField('tags', required=False)
 
@@ -24,8 +25,9 @@ class CreateGameForm(forms.ModelForm):
 
 
 class CustomUserCreationForm(UserCreationForm):
-    email = forms.EmailField(label='Your email address')
+    email = forms.EmailField(label="Your email address")
+    is_developer = forms.BooleanField(label="Do you want to add your own games as a developer?")
 
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
-        fields = ('username', 'email')
+        fields = ("username", "email")
