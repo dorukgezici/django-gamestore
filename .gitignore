@@ -8,3 +8,6 @@ __pycache__/
 db.sqlite3
 
 wsd2018project/media/covers/
+
+*.sublime-project
+*.sublime-workspace
