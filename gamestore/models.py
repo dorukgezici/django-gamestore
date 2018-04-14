@@ -34,7 +34,7 @@ class Score(models.Model):
     value = models.FloatField()
 
     class Meta:
-        ordering = ['value']
+        ordering = ['-value']
 
     def __str__(self):
         return "{} by {}".format(self.value, self.player)
