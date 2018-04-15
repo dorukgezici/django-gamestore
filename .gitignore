@@ -7,7 +7,7 @@ staticfiles
 __pycache__/
 db.sqlite3
 
-wsd2018project/media/covers/
+media/
 
 *.sublime-project
 *.sublime-workspace
