@@ -6,10 +6,10 @@
 
 {% block body %}
     <div class="container">
-        <div class="panel-group">
+        <div class="grid">
             {% for game in object_list %}
-                <div class="col-md-6">
-                    <div class="panel panel-primary" style="margin-bottom: 20px;">
+                <div class="col-md-6 grid-item">
+                    <div class="panel panel-primary">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-md-8">
@@ -43,4 +43,10 @@
             {% endfor %}
         </div>
     </div>
+    <script>
+        $(".grid").masonry({
+            itemSelector: ".grid-item",
+            columnWidth: ".grid-item"
+        });
+    </script>
 {% endblock %}
