@@ -13,6 +13,7 @@ import os
 import platform
 import dj_database_url
 import django_heroku
+import cloudinary
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ajax_select',
     'bootstrapform',
+    'cloudinary',
     'gamestore',
     'api',
 ]
@@ -163,6 +165,13 @@ MEDIA_URL = '/media/'
 MEDIAFILES_DIRS = [
     os.path.join(PROJECT_ROOT, 'media'),
 ]
+
+# Cloudinary configs (For media uploads)
+cloudinary.config(
+  cloud_name="hvghogo4k",
+  api_key="669877485749132",
+  api_secret="H8TP_T7ormYatxRHk94ZfnIQKyM"
+)
 
 LOGIN_REDIRECT_URL = "/"
 

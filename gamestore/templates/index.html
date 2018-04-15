@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load cloudinary %}
 
 {% block title %}Django Reinhardt's Game Store{% endblock %}
 
@@ -20,7 +21,7 @@
                             </div>
                         </div>
                         {% if game.cover %}
-                            <div class="panel-body" style="height: 200px;">
+                            <div class="panel-body">
                                 <img src="{{ game.cover.url }}" style="max-height: 200px;" class="img img-responsive center-block" alt="Game Cover">
                             </div>
                         {% endif %}
