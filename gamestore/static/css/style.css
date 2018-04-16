@@ -49,3 +49,19 @@ nav, .navbar {
 .pagination > .active > a, .pagination > li > a:hover {
     background-color: #567ea0;
 }
+
+#gameWrapper {
+    position: relative;
+    padding-top: 25px;
+    height: 0;
+}
+
+#gameWrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    -moz-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+}

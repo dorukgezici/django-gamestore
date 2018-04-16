@@ -10,21 +10,28 @@
                             <h2 class="panel-title">{{ game.name }}</h2>
                         </div>
                         <div class="panel-body" style="text-align: center;">
-                            <iframe id="game-{{ game.id }}" src="{{ game.url }}" align="middle" width="100%" height="600" scrolling="no" frameborder="0"></iframe>
-                        </div>
-                        {% if game.scores %}
-                            <div class="panel-body">
-                                <h3 style="display: inline-block;">Leaderboard</h3>
-                                {% if game.scores|length >= 4 %}
-                                    <a style="display: inline-block; float: right; margin-top: 25px;" href="javascript:showLeaderboard({{ game.scores_array }}, '{{ game.name }}');"><small>Show all of the leaderboard</small></a>
+                            <div class="row">
+                                <div class="col-md-9" style="overflow: hidden;">
+                                    <div id="gameWrapper">
+                                        <iframe id="game-{{ game.id }}" src="{{ game.url }}" width="800" height="600px" scrolling="no" frameborder="0"></iframe>
+                                    </div>
+                                </div>
+                            
+                                {% if game.scores %}
+                                    <div class="col-md-3">
+                                        <h3 style="display: inline-block;">Leaderboard</h3>
+                                        {% for score in game.scores %}
+                                            {% if forloop.counter < 4 %}
+                                                <p>#{{ forloop.counter }}: {{ score.value }} by <b>{{ score.player }}</b></p>
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% if game.scores|length >= 4 %}
+                                            <a style="display: inline-block;" href="javascript:showLeaderboard({{ game.scores_array }}, '{{ game.name }}');"><small>show more</small></a>
+                                        {% endif %}
+                                    </div>
                                 {% endif %}
-                                {% for score in game.scores %}
-                                    {% if forloop.counter < 4 %}
-                                        <p>#{{ forloop.counter }}: {{ score.value }} by <b>{{ score.player }}</b></p>
-                                    {% endif %}
-                                {% endfor %}
                             </div>
-                        {% endif %}
+                        </div>
                         <div class="panel-footer">
                             <h4>Developer: {{ game.developer }}</h4>
                         </div>

@@ -88,8 +88,45 @@
         gameFrame.get(0).contentWindow.postMessage(message, "*");
     }
 
+    var gameWidth;
+    var gameHeight;
+    var dimInit = false;
+
     function setSettings(event) {
         var options = event.data.options;
+
         gameFrame.height(options.height).width(options.width);
+
+        gameWidth = options.width;
+        gameHeight = options.height;
+        dimInit = true;
+
+        adjustGameFrame();
+    }
+
+    $(document).ready(function() {
+        $(window).resize(function() {
+            if(dimInit)
+                adjustGameFrame();
+        });
+    });
+
+    function adjustGameFrame() {
+        var gwidth = $("#gameWrapper").width();
+
+        $("#gameWrapper").css("padding-bottom", (Math.min(gwidth, gameWidth) * gameHeight / gameWidth) + "px");
+
+        var scale;
+        if(gameWidth <= gwidth)
+            scale = 1;
+        else
+            scale = gwidth / gameWidth;
+
+        var tstr = "scale(" + scale + ")";
+        gameFrame.css("-ms-zoom", scale);
+        gameFrame.css("-moz-transform", tstr);
+        gameFrame.css("-o-transform", tstr);
+        gameFrame.css("-webkit-transform", tstr);
+
     }
 </script>
