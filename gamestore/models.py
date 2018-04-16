@@ -1,3 +1,4 @@
+from cloudinary import models as cloudinary_models
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -20,7 +21,7 @@ class Game(models.Model):
     developer = models.ForeignKey(Developer, on_delete=models.CASCADE)
     name = models.CharField(max_length=150)
     url = models.URLField()
-    cover = models.ImageField(blank=True, null=True, upload_to="covers")
+    cover = cloudinary_models.CloudinaryField("cover")
     price = models.IntegerField(default=0)
     tags = models.ManyToManyField(Tag, blank=True, verbose_name="Tags")
 

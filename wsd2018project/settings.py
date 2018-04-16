@@ -10,9 +10,11 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import sys
 import platform
 import dj_database_url
 import django_heroku
+import cloudinary
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -27,7 +29,7 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 SECRET_KEY = "l1o5frp%a^li6j^o1dpc11uzs$jp74)aebk#wmvr2bk^he(my6"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = (sys.argv[1] == 'runserver')
 
 # Application definition
 
@@ -44,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ajax_select',
     'bootstrapform',
+    'cloudinary',
     'gamestore',
     'api',
 ]
@@ -139,6 +142,9 @@ DATABASES['default'].update(dj_database_url.config(conn_max_age=500, ssl_require
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
+# Rerdirect all traffic to HTTPS on server
+SECURE_SSL_REDIRECT = not DEBUG
+
 # Allow all host headers
 ALLOWED_HOSTS = ['*']
 
@@ -163,6 +169,13 @@ MEDIA_URL = '/media/'
 MEDIAFILES_DIRS = [
     os.path.join(PROJECT_ROOT, 'media'),
 ]
+
+# Cloudinary configs (For media uploads)
+cloudinary.config(
+  cloud_name="hvghogo4k",
+  api_key="669877485749132",
+  api_secret="H8TP_T7ormYatxRHk94ZfnIQKyM"
+)
 
 LOGIN_REDIRECT_URL = "/"
 

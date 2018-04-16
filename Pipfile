@@ -18,6 +18,7 @@ gunicorn = "*"
 Pillow = "*"
 django-bootstrap-form = "*"
 django-ajax-selects = "*"
+cloudinary = "*"
 
 [dev-packages]
 
