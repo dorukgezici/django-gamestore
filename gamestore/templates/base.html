@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{% static "css/style.css" %}">
     <script src="{% static "js/jquery-3.2.1.min.js" %}"></script>
     <script src="{% static "js/jquery-ui.js" %}"></script>
+    <!-- <script src="{% static "js/responsive-iframes.js" %}"></script> -->
 </head>
 <body>
     <div class="content">
@@ -35,22 +36,22 @@
                 <div class="collapse navbar-collapse" id="navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         {% url "index" as index_url %}
-                        <li {% if request.path == index_url %}class="active"{% endif %}><a href="{{ index_url }}">Home</a></li>
+                        <li {% if request.path == index_url %}class="active"{% endif %}><a href="{{ index_url }}"><span class="glyphicon glyphicon-home" style="margin-right: 0.5em;"></span> Home</a></li>
                         {% url "game_create" as game_create_url %}
-                        <li {% if request.path == game_create_url %}class="active"{% endif %}><a href="{{ game_create_url }}">Add Game</a></li>
+                        <li {% if request.path == game_create_url %}class="active"{% endif %}><a href="{{ game_create_url }}"><span class="glyphicon glyphicon-plus" style="margin-right: 0.5em;"></span> Add Game</a></li>
                         {% url "pay" as pay_url %}
-                        <li {% if request.path == pay_url %}class="active"{% endif %}><a href="{{ pay_url }}">Pay</a></li>
+                        <li {% if request.path == pay_url %}class="active"{% endif %}><a href="{{ pay_url }}"><span class="glyphicon glyphicon-euro" style="margin-right: 0.5em;"></span> Pay</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {% if request.user.is_authenticated %}
-                            <li><a href="/{% if request.user.is_superuser %}admin{% endif %}">{{request.user.username}}<span style="margin-left: 15px;"></span></a></li>
+                            <li><a href="/{% if request.user.is_superuser %}admin{% endif %}"><span class="glyphicon glyphicon-user" style="margin-right: 0.5em;"></span> {{request.user.username}}<span style="margin-left: 15px;"></span></a></li>
                             {% url "logout" as logout_url %}
-                            <li {% if request.path == logout_url %}class="active"{% endif %}><a href="{% url "logout" %}">Logout </a></li>
+                            <li {% if request.path == logout_url %}class="active"{% endif %}><a href="{% url "logout" %}"><span class="glyphicon glyphicon-log-out" style="margin-right: 0.5em;"></span> Logout </a></li>
                         {% else %}
                             {% url "signup" as signup_url %}
-                            <li {% if request.path == signup_url %}class="active"{% endif %}><a href="{% url "signup" %}">Sign Up </a></li>
+                            <li {% if request.path == signup_url %}class="active"{% endif %}><a href="{% url "signup" %}"><span class="glyphicon glyphicon-user" style="margin-right: 0.5em;"></span> Sign Up </a></li>
                             {% url "login" as login_url %}
-                            <li {% if request.path == login_url %}class="active"{% endif %}><a href="{% url "login" %}">Login </a></li>
+                            <li {% if request.path == login_url %}class="active"{% endif %}><a href="{% url "login" %}"><span class="glyphicon glyphicon-log-in" style="margin-right: 0.5em;"></span> Login </a></li>
                         {% endif %}
                     </ul>
                 </div>
