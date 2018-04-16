@@ -36,7 +36,24 @@
 
                                 </div>
                                 <div class="col-md-4">
-                                    <button id="pay-button" class="btn btn-primary" style="float: right;">BUY FOR {{ game.price }}$</button>
+                                    {% if request.user.is_authenticated %}
+                                        <form action="https://simplepayments.herokuapp.com/pay/" method="POST">
+                                            <input type="hidden" name="pid" value="{{ game.next_payment_id }}">
+                                            <input type="hidden" name="sid" value="g056">
+                                            <input type="hidden" name="success_url"
+                                                   value="//{{ request.get_host }}{% url "payment_success" %}">
+                                            <input type="hidden" name="cancel_url"
+                                                   value="//{{ request.get_host }}{% url "payment_cancel" %}">
+                                            <input type="hidden" name="error_url"
+                                                   value="//{{ request.get_host }}{% url "payment_error" %}">
+                                            <input type="hidden" name="checksum"
+                                                   value="{{ game.checksum }}">
+                                            <input type="hidden" id="id_amount" name="amount" value="{{ game.price }}">
+                                            <button type="submit" id="pay-button" class="btn btn-primary" style="float: right;">BUY FOR {{ game.price }}$</button>
+                                        </form>
+                                    {% else %}
+                                        <a href="{% url "login" %}" id="pay-button" class="btn btn-primary" style="float: right;">LOGIN TO BUY</a>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
