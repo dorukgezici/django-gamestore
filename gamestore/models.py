@@ -21,7 +21,7 @@ class Game(models.Model):
     developer = models.ForeignKey(Developer, on_delete=models.CASCADE)
     name = models.CharField(max_length=150)
     url = models.URLField()
-    cover = cloudinary_models.CloudinaryField("cover")
+    cover = cloudinary_models.CloudinaryField("cover", blank=True)
     price = models.IntegerField(default=0)
     tags = models.ManyToManyField(Tag, blank=True, verbose_name="Tags")
 

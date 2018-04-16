@@ -1,30 +1,32 @@
 {% extends "base.html" %}
 {% load static %}
 {% load cloudinary %}
+{% load text_custom %}
 
 {% block title %}Django Reinhardt's Game Store{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div class="grid">
+    <div class="container-fluid">
+        <div class="row">
             {% for game in object_list %}
-                <div class="col-md-6 grid-item">
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <div class="row">
-                                <div class="col-md-8">
-                                    <h2 class="panel-title"><a href="{% url "game" game.id %}">{{ game.name }}</a></h2>
-                                </div>
-                                <div class="col-md-4">
-                                    <h2 class="panel-title" style="float: right;">Price: {{ game.price }}$</h2>
+                                <div class="col-xs-12">
+                                    <h2 class="panel-title" style=""><a href="{% url "game" game.id %}">{{ game.name|limit_size:30}}</a></h2>
                                 </div>
                             </div>
                         </div>
-                        {% if game.cover %}
-                            <div class="panel-body">
-                                <img src="{{ game.cover.url }}" style="max-height: 200px;" class="img img-responsive center-block" alt="Game Cover">
+                        <div class="panel-body">
+                            <div class="imageWrapper">
+                                {% if game.cover %}
+                                    <img src="{{ game.cover.url }}" alt="Game Cover">
+                                {% else %}
+                                    <img src="{% static "images/default_cover.png" %}" alt="Game Cover">
+                                {% endif %}
                             </div>
-                        {% endif %}
+                        </div>
                         <div class="panel-footer">
                             <div class="row">
                                 <div class="col-md-5">

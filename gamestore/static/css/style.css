@@ -65,3 +65,17 @@ nav, .navbar {
     -o-transform-origin: 0 0;
     -webkit-transform-origin: 0 0;
 }
+
+.imageWrapper {
+    width: 100%;
+    overflow: hidden;
+    padding-bottom: 56.25%;
+    position: relative;
+}
+
+.imageWrapper > img {
+    position: absolute;
+    width: 100%;
+    left: 0px;
+    top: 0px;
+}
