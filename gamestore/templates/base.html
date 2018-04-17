@@ -44,9 +44,16 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {% if request.user.is_authenticated %}
-                            <li><a href="/{% if request.user.is_superuser %}admin{% endif %}"><span class="glyphicon glyphicon-user" style="margin-right: 0.5em;"></span> {{request.user.username}}<span style="margin-left: 15px;"></span></a></li>
-                            {% url "logout" as logout_url %}
-                            <li {% if request.path == logout_url %}class="active"{% endif %}><a href="{% url "logout" %}"><span class="glyphicon glyphicon-log-out" style="margin-right: 0.5em;"></span> Logout </a></li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user" style="margin-right: 0.5em;"></span> {{request.user.username}} <span class="caret"></span><span style="margin-left: 15px;"></span></a>
+                                <ul class="dropdown-menu">
+                                    {% if request.user.is_superuser %}
+                                        <li><a href="/admin"><span class="glyphicon glyphicon-wrench" style="margin-right: 0.5em;"></span> Admin </a></li>
+                                    {% endif %}
+                                    <li><a href="#"><span class="glyphicon glyphicon-cog" style="margin-right: 0.5em;"></span> Settings </a></li>
+                                    <li><a href="{% url "logout" %}"><span class="glyphicon glyphicon-log-out" style="margin-right: 0.5em;"></span> Logout </a></li>
+                                </ul>
+                            </li>
                         {% else %}
                             {% url "signup" as signup_url %}
                             <li {% if request.path == signup_url %}class="active"{% endif %}><a href="{% url "signup" %}"><span class="glyphicon glyphicon-user" style="margin-right: 0.5em;"></span> Sign Up </a></li>
