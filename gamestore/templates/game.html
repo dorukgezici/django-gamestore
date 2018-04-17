@@ -19,13 +19,13 @@
                             
                                 {% if game.scores %}
                                     <div class="col-md-3">
-                                        <h3 style="display: inline-block;">Leaderboard</h3>
+                                        <h3 style="display: inline-block;">Leaderboard</h3><hr>
                                         {% for score in game.scores %}
-                                            {% if forloop.counter < 4 %}
+                                            {% if forloop.counter < 6 %}
                                                 <p>#{{ forloop.counter }}: {{ score.value }} by <b>{{ score.player }}</b></p>
                                             {% endif %}
                                         {% endfor %}
-                                        {% if game.scores|length >= 4 %}
+                                        {% if game.scores|length >= 6 %}
                                             <a style="display: inline-block;" href="javascript:showLeaderboard({{ game.scores_array }}, '{{ game.name }}');"><small>show more</small></a>
                                         {% endif %}
                                     </div>
