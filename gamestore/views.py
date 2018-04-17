@@ -3,23 +3,41 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views import generic
 from hashlib import md5
-from .forms import PaymentForm, CustomUserCreationForm, CreateGameForm
-from .models import Game, Score, Payment
+from .forms import PaymentForm, CustomUserCreationForm, CreateGameForm, SearchForm, CreateTagForm
+from .models import Game, Score, Payment, Tag
 from django.db import connection
+from ajax_select.fields import autoselect_fields_check_can_add
 
+# /!\ Development only
+# Set to True to test with sqlite
+SQLITESAFE = False
 
 class IndexView(generic.ListView):
     model = Game
     template_name = "index.html"
 
+    def get_queryset(self):
+        #keywords = request.GET.get(, "")
+        qs = Game.objects.all()
+        #qs = qs.filter()
+        return qs
+
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         objects = context["object_list"]
         for game in objects:
+            if SQLITESAFE:
+                game.checksum = 0
+                continue
             next_payment_id = "{}-{}".format(game.id, get_next_id(Payment))
             game.next_payment_id = next_payment_id
             game.checksum = get_payment_checksum(next_payment_id, game.price)
         context["object_list"] = objects
+
+        form = SearchForm(self.request.GET)
+        context["form"] = form
+
         return context
 
 
@@ -106,6 +124,22 @@ def get_next_id(model_class):
 
 def example_game(request):
     return render(request, "example_game.html")
+
+
+class TagCreateView(generic.FormView):
+    form_class = CreateTagForm
+    template_name = "tag_create.html"
+    success_url = "/tag/add"
+
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect("/accounts/login")
+        else:
+            return super().get(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
 
 
 class RegistrationView(generic.FormView):
