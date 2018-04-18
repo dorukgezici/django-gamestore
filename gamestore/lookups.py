@@ -16,4 +16,4 @@ class TagsLookup(LookupChannel):
         return u"<span class='tag'>%s</span>" % item.name
 
     def can_add(self, user, model):
-        return True
+        return False

@@ -2,11 +2,30 @@
 {% load static %}
 {% load cloudinary %}
 {% load text_custom %}
+{% load bootstrap %}
 
 {% block title %}Django Reinhardt's Game Store{% endblock %}
 
 {% block body %}
-    <div class="container-fluid">
+    {{ form.media }}
+
+    <div id="searchEngine" class="container">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h2 class="panel-title"><a data-toggle="collapse" href="#collapseSearch">Advanced search</a></h2>
+            </div>
+            <div id="collapseSearch" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <form action="" method="GET">
+                        {{ form|bootstrap }}
+                        <button class="btn btn-primary">Search</button>
+                    </form>
+                </div>
+                <!-- <div class="panel-footer"></div> -->
+            </div>
+        </div>
+    </div>
+    <div id="games" class="container-fluid">
         <div class="row">
             {% for game in object_list %}
                 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
