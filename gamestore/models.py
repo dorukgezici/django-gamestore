@@ -1,6 +1,7 @@
 from cloudinary import models as cloudinary_models
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils import timezone
 
 
 class Developer(models.Model):
@@ -24,6 +25,13 @@ class Game(models.Model):
     cover = cloudinary_models.CloudinaryField("cover", blank=True)
     price = models.IntegerField(default=0)
     tags = models.ManyToManyField(Tag, blank=True, verbose_name="Tags")
+    created = models.DateTimeField(editable=False)
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            # If the object is created, its creation date is set
+            self.created = timezone.now()
+        return super(Game, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name

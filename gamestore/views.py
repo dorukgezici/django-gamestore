@@ -12,14 +12,40 @@ from ajax_select.fields import autoselect_fields_check_can_add
 # Set to True to test with sqlite
 SQLITESAFE = False
 
+
 class IndexView(generic.ListView):
     model = Game
     template_name = "index.html"
 
     def get_queryset(self):
-        #keywords = request.GET.get(, "")
         qs = Game.objects.all()
-        #qs = qs.filter()
+
+        max_price = int(self.request.GET.get("maxprice", "-1"))
+        if max_price >= 0:
+            qs = qs.filter(price__lte=max_price)
+
+        keywords = self.request.GET.get("keywords", "").split(" ")
+        for word in keywords:
+            qs = qs.filter(name__icontains=word)
+
+        tags = self.request.GET.get("tags", "")
+        if len(tags) > 2:
+            try:
+                tags_id = list(map(int, tags[1:-1].split("|")))
+                qs = qs.filter(tags__in=tags_id)
+            except:
+                pass
+
+        qs = qs.distinct()
+
+        sortby = self.request.GET.get("sortby", "recent")
+        if sortby == "recent":
+            qs = qs.order_by("-created", "name")
+        elif sortby == "cheapest":
+            qs = qs.order_by("price", "name")
+        else:
+            qs = qs.order_by("name")
+
         return qs
 
 

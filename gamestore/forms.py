@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 from gamestore.models import Payment, Game, Tag
 
+from django.core.validators import MinValueValidator
 from ajax_select.fields import AutoCompleteSelectMultipleField
 
 
@@ -40,5 +41,7 @@ class CustomUserCreationForm(UserCreationForm):
 
 
 class SearchForm(forms.Form):
-    keywords = forms.CharField(label='Keywords', required=False, max_length=128)
-    tags = AutoCompleteSelectMultipleField('tags', required=False, help_text="Begin typing to search tags")
+    keywords = forms.CharField(label='Keywords', max_length=128, required=False, )
+    tags = AutoCompleteSelectMultipleField('tags', label="Tags", help_text="Begin typing to search tags", required=False)
+    maxprice = forms.IntegerField(label="Maximum price", validators=[MinValueValidator(0)], required=False)
+    sortby = forms.ChoiceField(label="Sort by", choices=[("recent", "Most recent"), ("cheapest", "Cheapest price"), ("alpha", "Alphabetic order")], required=False)
