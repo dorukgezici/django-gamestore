@@ -12,15 +12,18 @@ from ajax_select.fields import autoselect_fields_check_can_add
 # Set to True to test with sqlite
 SQLITESAFE = False
 
-
 class IndexView(generic.ListView):
     model = Game
     template_name = "index.html"
+    paginate_by = 12
 
     def get_queryset(self):
         qs = Game.objects.all()
 
-        max_price = int(self.request.GET.get("maxprice", "-1"))
+        try:
+            max_price = int(self.request.GET.get("maxprice"))
+        except:
+            max_price = -1
         if max_price >= 0:
             qs = qs.filter(price__lte=max_price)
 
@@ -46,6 +49,9 @@ class IndexView(generic.ListView):
         else:
             qs = qs.order_by("name")
 
+        # page = int(self.request.GET.get("page", "1"))
+        # qs = qs[PAGESIZE*(page-1):PAGESIZE*(page-1)+PAGESIZE]
+
         return qs
 
 
@@ -63,6 +69,19 @@ class IndexView(generic.ListView):
 
         form = SearchForm(self.request.GET)
         context["form"] = form
+
+        if context["is_paginated"]:
+            page_range = list(context["paginator"].page_range)
+            page_number = context["page_obj"].number
+            if len(page_range) <= 3:
+                context["custom_range"] = page_range
+            elif page_number == 1:
+                context["custom_range"] = page_range[:3]
+            elif context["page_obj"].number == context["paginator"].num_pages:
+                context["custom_range"] = page_range[-3:]
+            else:
+                context["custom_range"] = page_range[page_number-2:page_number+1]
+            
 
         return context
 

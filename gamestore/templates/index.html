@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% load cloudinary %}
-{% load text_custom %}
+{% load index_tags %}
 {% load bootstrap %}
 
 {% block title %}Django Reinhardt's Game Store{% endblock %}
@@ -82,10 +82,29 @@
             {% endfor %}
         </div>
     </div>
-    <script>
-        $(".grid").masonry({
-            itemSelector: ".grid-item",
-            columnWidth: ".grid-item"
-        });
-    </script>
+    {% if is_paginated %}
+    <div class="container">
+        <div class="centered text-center">
+        <ul class="pagination">
+          {% if page_obj.has_previous %}
+              <li><a href="?{% url_replace request 'page' page_obj.previous_page_number %}">&laquo;</a></li>
+          {% else %}
+              <li class="disabled"><span>&laquo;</span></li>
+          {% endif %}
+          {% for i in custom_range %}
+              {% if page_obj.number == i %}
+                  <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+              {% else %}
+                  <li><a href="?{% url_replace request 'page' i %}">{{ i }}</a></li>
+              {% endif %}
+          {% endfor %}
+          {% if page_obj.has_next %}
+              <li><a href="?{% url_replace request 'page' page_obj.next_page_number %}">&raquo;</a></li>
+          {% else %}
+              <li class="disabled"><span>&raquo;</span></li>
+          {% endif %}
+      </ul>
+    </div>
+    </div>
+    {% endif %}
 {% endblock %}
