@@ -17,3 +17,30 @@
 {
 	background-color: #798d8f;
 }
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus
+{
+	color: #ffffff;
+	background-color: #1a242f;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus
+{
+	color: #ffffff;
+	background-color: #1a242f;
+}
+
+.panel-title > a
+{
+	display: block;
+	padding: 10px 15px;
+    margin: -10px -15px;
+}
+
+.panel-title > a:hover
+{
+	text-decoration: none;
+	background-color: #1a242f;
+}
