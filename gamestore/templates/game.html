@@ -7,7 +7,12 @@
                 {% with game as object %}
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <h2 class="panel-title">{{ game.name }}</h2>
+                            <div class="row">
+                                <h2 class="panel-title col-xs-9">{{ game.name }}</h2>
+                                {% if game.developer.user == user %}
+                                    <h2 class="panel-title col-xs-3"><a href="/dev/update/{{ game.id }}" style="text-align: right;">edit</a></h2>
+                                {% endif %}
+                            </div>
                         </div>
                         <div class="panel-body" style="text-align: center;">
                             <div class="row">

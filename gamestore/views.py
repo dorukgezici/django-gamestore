@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate, login
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.views import generic
 from hashlib import md5
@@ -97,6 +97,7 @@ class GameView(generic.DetailView):
         obj.scores = scores
         obj.scores_array = ["#{}: {} by {}".format(i, score.value, score.player) for i, score in enumerate(scores)]
         context["object"] = obj
+        context["user"] = self.request.user
         return context
 
 
@@ -108,6 +109,25 @@ class GameCreateView(generic.FormView):
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return HttpResponseRedirect("/accounts/login")
+        else:
+            return super().get(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+
+class GameUpdateView(generic.UpdateView):
+    model = Game
+    form_class = CreateGameForm
+    template_name = "game_update.html"
+    success_url = "/"
+
+    def get(self, request, *args, pk=None, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect("/accounts/login")
+        elif Game.objects.get(id=pk).developer.user != request.user:
+            return HttpResponse('Unauthorized', status=401)
         else:
             return super().get(request, *args, **kwargs)
 
@@ -197,3 +217,13 @@ class RegistrationView(generic.FormView):
         user = authenticate(username=form.cleaned_data["username"], password=form.cleaned_data["password1"])
         login(self.request, user)
         return super().form_valid(form)
+
+
+class StatsView(generic.ListView):
+    form_class = Game
+    template_name = "dev_stats.html"
+
+    def get_queryset(self):
+        qs = Game.objects.all().filter(developer__user=self.request.user)
+
+        return qs

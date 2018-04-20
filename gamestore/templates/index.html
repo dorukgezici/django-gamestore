@@ -65,7 +65,7 @@
                                             <input type="hidden" name="checksum"
                                                    value="{{ game.checksum }}">
                                             <input type="hidden" id="id_amount" name="amount" value="{{ game.price }}">
-                                            <button type="submit" id="pay-button" class="btn btn-primary" style="float: right;">BUY FOR {{ game.price }}$</button>
+                                            <button type="submit" id="pay-button" class="btn btn-primary" style="float: right;">BUY FOR {{ game.price }}€</button>
                                         </form>
                                     {% else %}
                                         <a href="{% url "login" %}" id="pay-button" class="btn btn-primary" style="float: right;">LOGIN TO BUY</a>

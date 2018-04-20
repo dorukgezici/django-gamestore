@@ -37,15 +37,22 @@
                     <ul class="nav navbar-nav">
                         {% url "index" as index_url %}
                         <li {% if request.path == index_url %}class="active"{% endif %}><a href="{{ index_url }}"><span class="glyphicon glyphicon-home" style="margin-right: 0.5em;"></span> Home</a></li>
-                        {% url "game_create" as game_create_url %}
-                        <li {% if request.path == game_create_url %}class="active"{% endif %}><a href="{{ game_create_url }}"><span class="glyphicon glyphicon-plus" style="margin-right: 0.5em;"></span> Add Game</a></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-tasks" style="margin-right: 0.5em;"></span> Developer <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                {% url "game_create" as game_create_url %}
+                                <li {% if request.path == game_create_url %}class="active"{% endif %}><a href="{{ game_create_url }}"><span class="glyphicon glyphicon-plus" style="margin-right: 0.5em;"></span> Add Game</a></li>
+                                {% url "dev_stats" as dev_stats_url %}
+                                <li {% if request.path == dev_stats_url %}class="active"{% endif %}><a href="{{ dev_stats_url }}"><span class="glyphicon glyphicon-stats" style="margin-right: 0.5em;"></span> Stats</a></li>
+                            </ul>
+                        </li>
                         {% url "pay" as pay_url %}
                         <li {% if request.path == pay_url %}class="active"{% endif %}><a href="{{ pay_url }}"><span class="glyphicon glyphicon-euro" style="margin-right: 0.5em;"></span> Pay</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {% if request.user.is_authenticated %}
                             <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user" style="margin-right: 0.5em;"></span> {{request.user.username}} <span class="caret"></span><span style="margin-left: 15px;"></span></a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user" style="margin-right: 0.5em;"></span> {{request.user.username}} <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     {% if request.user.is_superuser %}
                                         <li><a href="/admin"><span class="glyphicon glyphicon-wrench" style="margin-right: 0.5em;"></span> Admin </a></li>
