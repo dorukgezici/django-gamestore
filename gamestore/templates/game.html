@@ -10,7 +10,7 @@
                             <div class="row">
                                 <h2 class="panel-title col-xs-9">{{ game.name }}</h2>
                                 {% if game.developer.user == user %}
-                                    <h2 class="panel-title col-xs-3"><a href="/dev/update/{{ game.id }}" style="text-align: right;">edit</a></h2>
+                                    <h2 class="panel-title col-xs-3"><a href="/dev/update/{{ game.id }}" style="text-align: right;"><span class="glyphicon glyphicon-edit" style="margin-right: 0.5em;"></span> Edit </a></h2>
                                 {% endif %}
                             </div>
                         </div>
@@ -31,6 +31,7 @@
                                             {% endif %}
                                         {% endfor %}
                                         {% if game.scores|length >= 6 %}
+                                            <hr>
                                             <a style="display: inline-block;" data-toggle="modal" data-target="#moreLeaderboard" class="btn btn-primary"><small>show more</small></a>
                                         {% endif %}
                                     </div>

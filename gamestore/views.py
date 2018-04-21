@@ -8,7 +8,6 @@ from hashlib import md5
 from .forms import CustomUserCreationForm, CreateGameForm, SearchForm, CreateTagForm
 from .models import Game, Score, Payment, Developer
 from django.db import connection
-from ajax_select.fields import autoselect_fields_check_can_add
 from django.contrib.auth.decorators import login_required
 
 # /!\ Development only
@@ -211,7 +210,7 @@ class ProfileView(generic.DetailView):
         payments = Payment.objects.filter(user=self.request.user)
         context["payments"] = payments
         context["total_spent"] = sum(payment.amount for payment in payments)
-        my_games = [Game.objects.get(id=payment.game.id) for payment in payments]
+        my_games = Game.objects.filter(developer__user=self.request.user)
         context["my_games"] = my_games
         try:
             developer = Developer.objects.get(user=self.request.user)
@@ -225,11 +224,3 @@ class ProfileView(generic.DetailView):
 def switch_to_developer(request):
     developer, _ = Developer.objects.get_or_create(user=request.user)
     return HttpResponseRedirect(reverse("profile", request.user.id))
-
-
-class StatsView(generic.ListView):
-    form_class = Game
-    template_name = "dev_stats.html"
-
-    def get_queryset(self):
-        return Game.objects.all().filter(developer__user=self.request.user)

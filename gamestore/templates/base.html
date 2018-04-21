@@ -42,8 +42,6 @@
                             <ul class="dropdown-menu">
                                 {% url "game_create" as game_create_url %}
                                 <li {% if request.path == game_create_url %}class="active"{% endif %}><a href="{{ game_create_url }}"><span class="glyphicon glyphicon-plus" style="margin-right: 0.5em;"></span> Add Game </a></li>
-                                {% url "dev_stats" as dev_stats_url %}
-                                <li {% if request.path == dev_stats_url %}class="active"{% endif %}><a href="{{ dev_stats_url }}"><span class="glyphicon glyphicon-stats" style="margin-right: 0.5em;"></span> Stats </a></li>
                             </ul>
                         </li>
                     </ul>
