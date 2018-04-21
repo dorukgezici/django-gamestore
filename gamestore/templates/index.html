@@ -52,7 +52,6 @@
                                     <h4>Developer: {{ game.developer }}</h4>
                                 </div>
                                 <div class="col-md-3">
-
                                 </div>
                                 <div class="col-md-4">
                                     {% if request.user.is_authenticated %}
@@ -71,7 +70,7 @@
                                             <button type="submit" id="pay-button" class="btn btn-primary" style="float: right;">BUY FOR {{ game.price }}$</button>
                                         </form>
                                     {% else %}
-                                        <a href="{% url "login" %}" id="pay-button" class="btn btn-primary" style="float: right;">LOGIN TO BUY</a>
+                                        <a href="{% url "login" %}" id="pay-button" class="btn btn-primary" style="float: right;">BUY FOR {{ game.price }}$</a>
                                     {% endif %}
                                 </div>
                             </div>

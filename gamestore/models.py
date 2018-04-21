@@ -55,9 +55,9 @@ class GameState(models.Model):
 
 
 class Payment(models.Model):
-    player = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=9, decimal_places=2)
 
     def __str__(self):
-        return "{} - {} : {}".format(self.player, self.game, self.amount)
+        return "{} - {} : {}$".format(self.user, self.game, self.amount)

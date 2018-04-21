@@ -40,13 +40,14 @@
                         {% url "game_create" as game_create_url %}
                         <li {% if request.path == game_create_url %}class="active"{% endif %}><a href="{{ game_create_url }}"><span class="glyphicon glyphicon-plus" style="margin-right: 0.5em;"></span> Add Game</a></li>
                         {% url "pay" as pay_url %}
-                        <li {% if request.path == pay_url %}class="active"{% endif %}><a href="{{ pay_url }}"><span class="glyphicon glyphicon-euro" style="margin-right: 0.5em;"></span> Pay</a></li>
+                        <li {% if request.path == pay_url %}class="active"{% endif %}><a href="{{ pay_url }}"><span class="glyphicon glyphicon-usd" style="margin-right: 0.5em;"></span> Pay</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {% if request.user.is_authenticated %}
                             <li class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user" style="margin-right: 0.5em;"></span> {{request.user.username}} <span class="caret"></span><span style="margin-left: 15px;"></span></a>
                                 <ul class="dropdown-menu">
+                                    <li><a href="{% url "profile" request.user.id %}"><span class="glyphicon glyphicon-user" style="margin-right: 0.5em;"></span> Profile </a></li>
                                     {% if request.user.is_superuser %}
                                         <li><a href="/admin"><span class="glyphicon glyphicon-wrench" style="margin-right: 0.5em;"></span> Admin </a></li>
                                     {% endif %}

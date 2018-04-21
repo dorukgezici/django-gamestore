@@ -1,16 +1,20 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 from django.views import generic
 from hashlib import md5
 from .forms import PaymentForm, CustomUserCreationForm, CreateGameForm, SearchForm, CreateTagForm
-from .models import Game, Score, Payment, Tag
+from .models import Game, Score, Payment, Developer
 from django.db import connection
 from ajax_select.fields import autoselect_fields_check_can_add
+from django.contrib.auth.decorators import login_required
 
 # /!\ Development only
 # Set to True to test with sqlite
 SQLITESAFE = False
+
 
 class IndexView(generic.ListView):
     model = Game
@@ -21,7 +25,6 @@ class IndexView(generic.ListView):
         qs = Game.objects.all()
         #qs = qs.filter()
         return qs
-
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -151,4 +154,31 @@ class RegistrationView(generic.FormView):
         form.save()
         user = authenticate(username=form.cleaned_data["username"], password=form.cleaned_data["password1"])
         login(self.request, user)
+        if form.cleaned_data["is_developer"]:
+            Developer.objects.get_or_create(user=user)
         return super().form_valid(form)
+
+
+class ProfileView(generic.DetailView):
+    model = User
+    template_name = "profile.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        payments = Payment.objects.filter(user=self.request.user)
+        context["payments"] = payments
+        context["total_spent"] = sum(payment.amount for payment in payments)
+        my_games = [Game.objects.get(id=payment.game.id) for payment in payments]
+        context["my_games"] = my_games
+        try:
+            developer = Developer.objects.get(user=self.request.user)
+            context["developer"] = developer
+        except Developer.DoesNotExist:
+            context["developer"] = False
+        return context
+
+
+@login_required
+def switch_to_developer(request):
+    developer, _ = Developer.objects.get_or_create(user=request.user)
+    return HttpResponseRedirect(reverse("profile", request.user.id))
