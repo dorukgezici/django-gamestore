@@ -2,7 +2,7 @@
 {% load static %}
 {% load bootstrap %}
 
-{% block title %}Add Game | Django Reinhardt's Game Store{% endblock %}
+{% block title %}Update Game | Django Reinhardt's Game Store{% endblock %}
 
 {% block body %}
     {{ form.media }}
@@ -13,7 +13,7 @@
                     {% csrf_token %}
                     {{ form|bootstrap }}
                     <a href="" class="btn btn-default" data-toggle="modal" data-target="#createTag">Create new tags</a>
-                    <button class="btn btn-primary">Add Game</button>
+                    <button class="btn btn-primary">Update game</button>
                 </form>
             </div>
         </div>
