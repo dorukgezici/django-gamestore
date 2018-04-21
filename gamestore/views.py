@@ -223,4 +223,4 @@ class ProfileView(generic.DetailView):
 @login_required
 def switch_to_developer(request):
     developer, _ = Developer.objects.get_or_create(user=request.user)
-    return HttpResponseRedirect(reverse("profile", request.user.id))
+    return HttpResponseRedirect(reverse("profile", kwargs={"pk": request.user.id}))

@@ -88,13 +88,12 @@
         gameFrame.get(0).contentWindow.postMessage(message, "*");
     }
 
-    var gameWidth;
-    var gameHeight;
+    var gameWidth = 800;
+    var gameHeight = 600;
     var dimInit = false;
 
     function setSettings(event) {
         var options = event.data.options;
-
         gameFrame.height(options.height).width(options.width);
 
         gameWidth = options.width;
@@ -104,20 +103,12 @@
         adjustGameFrame();
     }
 
-    $(document).ready(function() {
-        $(window).resize(function() {
-            if(dimInit)
-                adjustGameFrame();
-        });
-    });
-
     function adjustGameFrame() {
         var gwidth = $("#gameWrapper").width();
-
         $("#gameWrapper").css("padding-bottom", (Math.min(gwidth, gameWidth) * gameHeight / gameWidth) + "px");
 
         var scale;
-        if(gameWidth <= gwidth)
+        if (gameWidth <= gwidth)
             scale = 1;
         else
             scale = gwidth / gameWidth;
@@ -127,6 +118,5 @@
         gameFrame.css("-moz-transform", tstr);
         gameFrame.css("-o-transform", tstr);
         gameFrame.css("-webkit-transform", tstr);
-
     }
 </script>

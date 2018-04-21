@@ -32,7 +32,7 @@ class CreateTagForm(forms.ModelForm):
 
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(label="Your email address")
-    is_developer = forms.BooleanField(label="Do you want to add your own games as a developer?")
+    is_developer = forms.BooleanField(label="Do you want to add your own games as a developer?", required=False)
 
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
