@@ -66,6 +66,7 @@ class Payment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=9, decimal_places=2)
+    date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return "{} - {} : {}$".format(self.user, self.game, self.amount)
+        return "{}$ - {} : {}".format(self.amount, self.game, self.date.strftime("%Y-%m-%d | %H:%m"))

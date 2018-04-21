@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views import generic
 from hashlib import md5
-from .forms import PaymentForm, CustomUserCreationForm, CreateGameForm, SearchForm, CreateTagForm
+from .forms import CustomUserCreationForm, CreateGameForm, SearchForm, CreateTagForm
 from .models import Game, Score, Payment, Developer
 from django.db import connection
 from ajax_select.fields import autoselect_fields_check_can_add
@@ -84,8 +84,6 @@ class IndexView(generic.ListView):
                 context["custom_range"] = page_range[-3:]
             else:
                 context["custom_range"] = page_range[page_number-2:page_number+1]
-            
-
         return context
 
 
@@ -139,32 +137,12 @@ class GameUpdateView(generic.UpdateView):
         return super().form_valid(form)
 
 
-class PayView(generic.CreateView):
-    form_class = PaymentForm
-    template_name = "pay.html"
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        if self.request.method == "POST":
-            post_data = kwargs["data"].copy()
-            post_data["sid"] = self.request.user.id
-            # post_data["pid"]
-            kwargs["data"] = post_data
-        return kwargs
-
-    def form_valid(self, form):
-        return super().form_valid(form)
-
-    def get_context_data(self, **kwargs):
-        return super().get_context_data(**kwargs)
-
-
 def payment_view(request):
     if request.GET.get("result", "error") == "success":
         if "success" in request.path:
             game_id = request.GET["pid"].split("-")[0]
             game = Game.objects.get(id=game_id)
-            Payment.objects.create(player=request.user, game=game, amount=game.price)
+            Payment.objects.create(user=request.user, game=game, amount=game.price)
             msg = "Your payment was a SUCCESS!"
     elif "cancel" in request.path:
         msg = "Your payment was CANCELED!"
@@ -254,5 +232,4 @@ class StatsView(generic.ListView):
     template_name = "dev_stats.html"
 
     def get_queryset(self):
-        qs = Game.objects.all().filter(developer__user=self.request.user)
-        return qs
+        return Game.objects.all().filter(developer__user=self.request.user)
