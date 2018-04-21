@@ -41,13 +41,11 @@
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-tasks" style="margin-right: 0.5em;"></span> Developer <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 {% url "game_create" as game_create_url %}
-                                <li {% if request.path == game_create_url %}class="active"{% endif %}><a href="{{ game_create_url }}"><span class="glyphicon glyphicon-plus" style="margin-right: 0.5em;"></span> Add Game</a></li>
+                                <li {% if request.path == game_create_url %}class="active"{% endif %}><a href="{{ game_create_url }}"><span class="glyphicon glyphicon-plus" style="margin-right: 0.5em;"></span> Add Game </a></li>
                                 {% url "dev_stats" as dev_stats_url %}
-                                <li {% if request.path == dev_stats_url %}class="active"{% endif %}><a href="{{ dev_stats_url }}"><span class="glyphicon glyphicon-stats" style="margin-right: 0.5em;"></span> Stats</a></li>
+                                <li {% if request.path == dev_stats_url %}class="active"{% endif %}><a href="{{ dev_stats_url }}"><span class="glyphicon glyphicon-stats" style="margin-right: 0.5em;"></span> Stats </a></li>
                             </ul>
                         </li>
-                        {% url "pay" as pay_url %}
-                        <li {% if request.path == pay_url %}class="active"{% endif %}><a href="{{ pay_url }}"><span class="glyphicon glyphicon-usd" style="margin-right: 0.5em;"></span> Pay</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {% if request.user.is_authenticated %}
@@ -58,7 +56,6 @@
                                     {% if request.user.is_superuser %}
                                         <li><a href="/admin"><span class="glyphicon glyphicon-wrench" style="margin-right: 0.5em;"></span> Admin </a></li>
                                     {% endif %}
-                                    <li><a href="#"><span class="glyphicon glyphicon-cog" style="margin-right: 0.5em;"></span> Settings </a></li>
                                     <li><a href="{% url "logout" %}"><span class="glyphicon glyphicon-log-out" style="margin-right: 0.5em;"></span> Logout </a></li>
                                 </ul>
                             </li>
