@@ -61,6 +61,11 @@ class IndexView(generic.ListView):
         context = super().get_context_data(**kwargs)
         objects = context["object_list"]
         for game in objects:
+            if not self.request.user.is_authenticated:
+                game.possessed = False
+            else:
+                game.possessed = Payment.objects.filter(user=self.request.user).filter(game=game).exists()
+
             if SQLITESAFE:
                 game.checksum = 0
                 continue
