@@ -132,6 +132,8 @@ class GameUpdateView(generic.UpdateView):
             return super().get(request, *args, **kwargs)
 
     def form_valid(self, form):
+        if self.request.user != self.get_object().developer.user:
+            return HttpResponse('Unauthorized', status=401)
         form.save()
         return super().form_valid(form)
 
