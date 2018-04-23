@@ -1,14 +1,14 @@
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import generic
 from hashlib import md5
 from .forms import CustomUserCreationForm, CreateGameForm, SearchForm, CreateTagForm
-from .models import Game, Score, Payment, Developer
+from .models import User, Game, Score, Payment
 from django.db import connection
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 
 # /!\ Development only
 # Set to True to test with sqlite
@@ -105,7 +105,6 @@ class GameView(generic.DetailView):
             return super().get(request, *args, **kwargs)
         else:
             return HttpResponseNotFound("This game doesn't exist or you don't own it.")
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -215,8 +214,10 @@ class RegistrationView(generic.FormView):
         form.save()
         user = authenticate(username=form.cleaned_data["username"], password=form.cleaned_data["password1"])
         login(self.request, user)
+        send_mail(from_email="", user.email, 'Use %s to confirm your email' % user.confirmation_key)
         if form.cleaned_data["is_developer"]:
-            Developer.objects.get_or_create(user=user)
+            user.is_developer = True
+            user.save()
         return super().form_valid(form)
 
 
@@ -229,17 +230,17 @@ class ProfileView(generic.DetailView):
         payments = Payment.objects.filter(user=self.request.user)
         context["payments"] = payments
         context["total_spent"] = sum(payment.amount for payment in payments)
-        my_games = Game.objects.filter(developer__user=self.request.user)
+        my_games = Game.objects.filter(developer=self.request.user)
         context["my_games"] = my_games
-        try:
-            developer = Developer.objects.get(user=self.request.user)
-            context["developer"] = developer
-        except Developer.DoesNotExist:
+        if self.request.user.is_developer:
+            context["developer"] = self.request.user
+        else:
             context["developer"] = False
         return context
 
 
 @login_required
 def switch_to_developer(request):
-    developer, _ = Developer.objects.get_or_create(user=request.user)
+    request.user.is_developer = True
+    request.user.save()
     return HttpResponseRedirect(reverse("profile", kwargs={"pk": request.user.id}))
