@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'ajax_select',
     'bootstrapform',
     'cloudinary',
+    'simple_email_confirmation',
     'gamestore',
     'api',
 ]
@@ -178,6 +179,13 @@ cloudinary.config(
 )
 
 LOGIN_REDIRECT_URL = "/"
+AUTH_USER_MODEL = 'gamestore.User'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'django.reinhardt.gamestore@gmail.com'
+EMAIL_HOST_PASSWORD = 'DjangoReinhardt123'
+EMAIL_PORT = 587
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())

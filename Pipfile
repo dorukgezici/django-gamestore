@@ -19,6 +19,7 @@ Pillow = "*"
 django-bootstrap-form = "*"
 django-ajax-selects = "*"
 cloudinary = "*"
+django-simple-email-confirmation = "*"
 
 [dev-packages]
 
