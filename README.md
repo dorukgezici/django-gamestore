@@ -12,7 +12,6 @@ Project Plan
 | Name         | Email                      | Student id |
 |:------------ |:--------------------------:| ----------:|
 | Doruk Gezici | ali.gezici@student.tut.fi  | 278090     |
-| Ilkka Niemi  | ilkka.niemi@student.tut.fi | 201813     |
 | Louis Sugy   | louis.sugy@student.tut.fi  | 273435     |
 
 
@@ -62,13 +61,13 @@ Here is a non-exhaustive list of the optional features we are going to implement
     - Weekly face-to-face meetings
     - Coding nights
 - Project management tools:
-    - GitLab issues board & backlog
+    - Features board updated regularly
 - Technology:
     - The game will be made with *ExcaliburJS* library ;
-    - The game will be hosted on GitHub pages with SSL ;
+    - The game will be hosted on *GitHub pages* with SSL ;
     - The store will use *jQuery* JS library ;
     - The store will use *Bootstrap* for a responsive front-end ;
-    - The whole project will be deployed on Heroku.
+    - The whole project will be deployed on *Heroku*.
 
 
 ## Timetable
@@ -86,9 +85,9 @@ Here is a non-exhaustive list of the optional features we are going to implement
 
 - [x] User models
 - [x] Signup and login forms & views
-- [ ] Game and tag models
+- [x] Game and tag models
 - [x] View to add a new game
-- [ ] View to edit a game
+- [x] View to edit a game
 
 **April 5th: JS Game deadline.**
 
@@ -96,12 +95,12 @@ Here is a non-exhaustive list of the optional features we are going to implement
 
 - [x] Simple page to play a game
 - [x] Advanced features of playing: save & load, scores
-- [ ] Search a game
+- [x] Search a game
 - [ ] Simple developer stats
 
 ### 5th week (A 9th - A 15th)
 
-- [ ] Front-end design (responsive)
+- [x] Front-end design (responsive)
 
 **April 15th: Testing deadline.**
 
@@ -110,7 +109,7 @@ Here is a non-exhaustive list of the optional features we are going to implement
 - [ ] 3rd party login
 - [ ] Sharing
 - [ ] Enhanced dev stats
-- [ ] Enhanced game search
+- [x] Enhanced game search
 
 **April 26th: Final submission.**
 
