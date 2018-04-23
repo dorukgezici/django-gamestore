@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import generic
@@ -94,6 +94,18 @@ class IndexView(generic.ListView):
 class GameView(generic.DetailView):
     model = Game
     template_name = "game.html"
+
+    def get(self, request, *args, pk=None, **kwargs):
+        if not request.user.is_authenticated:
+            possessed = False
+        else:
+            possessed = Payment.objects.filter(user=request.user).filter(game__id=pk).exists()
+
+        if possessed:
+            return super().get(request, *args, **kwargs)
+        else:
+            return HttpResponseNotFound("This game doesn't exist or you don't own it.")
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
