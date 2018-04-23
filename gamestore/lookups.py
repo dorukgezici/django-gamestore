@@ -15,5 +15,8 @@ class TagsLookup(LookupChannel):
     def format_item_display(self, item):
         return u"<span class='tag'>%s</span>" % item.name
 
+    def check_auth(self, request):
+    	return True
+
     def can_add(self, user, model):
         return False
