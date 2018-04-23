@@ -9,6 +9,7 @@ from .models import User, Game, Score, Payment
 from django.db import connection
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
+from django.contrib import messages
 
 # /!\ Development only
 # Set to True to test with sqlite
@@ -214,11 +215,18 @@ class RegistrationView(generic.FormView):
         form.save()
         user = authenticate(username=form.cleaned_data["username"], password=form.cleaned_data["password1"])
         login(self.request, user)
-        send_mail(from_email="", user.email, 'Use %s to confirm your email' % user.confirmation_key)
+        link = reverse("confirm_email", kwargs={"key": user.confirmation_key})
+        send_mail("Email Confirmation for Django-Reinhardt", "Welcome to our website!", from_email="Django Reinhardt's Gamestore", recipient_list=[user.email], html_message='<p>Use this link to confirm your email: <a href="http://{}{}">http://{}{}</a></p>'.format(self.request.META['HTTP_HOST'], link, self.request.META['HTTP_HOST'], link))
         if form.cleaned_data["is_developer"]:
             user.is_developer = True
             user.save()
         return super().form_valid(form)
+
+
+def confirm_email(request, key):
+    request.user.confirm_email(key)
+    messages.add_message(request, messages.INFO, "Email verified!")
+    return HttpResponseRedirect("/")
 
 
 class ProfileView(generic.DetailView):

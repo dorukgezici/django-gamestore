@@ -1,7 +1,12 @@
 from django.contrib import admin
-from gamestore.models import Game, GameState, Score, Payment, Tag
+from gamestore.models import User, Game, GameState, Score, Payment, Tag
 from ajax_select.admin import AjaxSelectAdmin
 from gamestore.forms import CreateGameForm
+
+
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+    pass
 
 
 @admin.register(Tag)
