@@ -3,22 +3,6 @@
 {% block body %}
     <div class="container center">
         <div class="row">
-            <div class="col-md-4 col-md-offset-1">
-                <h1>My Games <small>{{ my_games|length }} Games</small></h1>
-                <hr>
-                {% for game in my_games %}
-                    <p><a href="{% url "game" game.id %}">{{ game }}</a></p>
-                {% endfor %}
-            </div>
-            <div class="col-md-7">
-                <h1>My Purchases <small>Total Spent: {{ total_spent }}$</small></h1>
-                <hr>
-                {% for payment in payments %}
-                    <p>{{ payment }}</p>
-                {% endfor %}
-            </div>
-        </div>
-        <div style="margin-top: 50px;" class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
@@ -33,6 +17,30 @@
                         </div>
                     {% endif %}
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-1">
+                <h1>My Games <small>{{ my_games|length }} Games</small></h1>
+                <hr>
+                <ul class="list-group list-group-flush">
+                    {% for game in my_games %}
+                        <li class="list-group-item">
+                            <a class="text-primary" href="{% url "game" game.id %}">{{ game }}</a><a class="text-primary" href="{% url "game_update" game.id %}"><span class="glyphicon glyphicon-edit" style="margin-left: 1.5em;"></span> Edit </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h1>My Purchases <small>Total Spent: {{ total_spent }}$</small></h1>
+                <hr>
+                <ul class="list-group list-group-flush">
+                    {% for payment in payments %}
+                        <li class="list-group-item">
+                            <a class="text-primary" href="{% url "game" payment.game.id %}">{{ payment }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
     </div>

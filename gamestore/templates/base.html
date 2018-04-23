@@ -40,6 +40,8 @@
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-tasks" style="margin-right: 0.5em;"></span> Developer <span class="caret"></span></a>
                             <ul class="dropdown-menu">
+                                {% url "profile" request.user.id as profile_url %}
+                                <li {% if request.path == profile_url %}class="active"{% endif %}><a href="{{ profile_url }}"><span class="glyphicon glyphicon-stats" style="margin-right: 0.5em;"></span> Statistics </a></li>
                                 {% url "game_create" as game_create_url %}
                                 <li {% if request.path == game_create_url %}class="active"{% endif %}><a href="{{ game_create_url }}"><span class="glyphicon glyphicon-plus" style="margin-right: 0.5em;"></span> Add Game </a></li>
                             </ul>

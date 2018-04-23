@@ -69,4 +69,4 @@ class Payment(models.Model):
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return "{}$ - {} : {}".format(self.amount, self.game, self.date.strftime("%Y-%m-%d | %H:%m"))
+        return "{} | {}$ | {}".format(self.game, self.amount, self.date.strftime("%Y-%m-%d | %H:%m"))
