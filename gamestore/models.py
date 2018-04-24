@@ -1,5 +1,6 @@
 from cloudinary import models as cloudinary_models
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 from simple_email_confirmation.models import SimpleEmailConfirmationUserMixin
@@ -27,6 +28,9 @@ class Game(models.Model):
     price = models.IntegerField(default=0)
     tags = models.ManyToManyField(Tag, blank=True, verbose_name="Tags")
     created = models.DateTimeField(editable=False)
+
+    def get_absolute_url(self):
+        return reverse('game', args=[str(self.id)])
 
     def save(self, *args, **kwargs):
         if not self.id:

@@ -1,4 +1,13 @@
 {% extends "base.html" %}
+{% load social_share %}
+
+{% block meta %}
+    <meta property="og:url" content="{{ request.path }}">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ object.name }}">
+    <meta property="og:description" content="Check out or add JS games on Django-Reinhardt's Gamestore">
+    <meta property="og:image" content="{{ object.cover.url }}">
+{% endblock %}
 
 {% block body %}
     <div class="container">
@@ -8,9 +17,13 @@
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <div class="row">
-                                <h2 class="panel-title col-xs-9">{{ game.name }}</h2>
+                                <h2 class="panel-title col-xs-8">{{ game.name }}</h2>
+                                <h2 class="panel-title col-xs-2">
+                                    <span class="glyphicon glyphicon-share" style="margin-right: 0.5em; float: left;"></span>
+                                    {% post_to_facebook game "Share on FB" %}
+                                </h2>
                                 {% if game.developer == user %}
-                                    <h2 class="panel-title col-xs-3"><a href="{% url "game_update" game.id %}" style="text-align: right;"><span class="glyphicon glyphicon-edit" style="margin-right: 0.5em;"></span> Edit </a></h2>
+                                    <h2 class="panel-title col-xs-2"><a href="{% url "game_update" game.id %}" style="text-align: right;"><span class="glyphicon glyphicon-edit" style="margin-right: 0.5em;"></span> Edit </a></h2>
                                 {% endif %}
                             </div>
                         </div>

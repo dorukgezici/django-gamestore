@@ -22,6 +22,7 @@ cloudinary = "*"
 django-simple-email-confirmation = "*"
 social-auth-app-django = "*"
 django-font-awesome = "*"
+django-social-share = "*"
 
 [dev-packages]
 
