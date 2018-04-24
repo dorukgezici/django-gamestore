@@ -9,7 +9,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <h2 class="panel-title col-xs-9">{{ game.name }}</h2>
-                                {% if game.developer.user == user %}
+                                {% if game.developer == user %}
                                     <h2 class="panel-title col-xs-3"><a href="{% url "game_update" game.id %}" style="text-align: right;"><span class="glyphicon glyphicon-edit" style="margin-right: 0.5em;"></span> Edit </a></h2>
                                 {% endif %}
                             </div>

@@ -44,7 +44,6 @@ class IndexView(generic.ListView):
                 pass
 
         qs = qs.distinct()
-
         sortby = self.request.GET.get("sortby", "recent")
         if sortby == "recent":
             qs = qs.order_by("-created", "name")
@@ -55,7 +54,6 @@ class IndexView(generic.ListView):
 
         # page = int(self.request.GET.get("page", "1"))
         # qs = qs[PAGESIZE*(page-1):PAGESIZE*(page-1)+PAGESIZE]
-
         return qs
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -126,10 +124,17 @@ class GameCreateView(generic.FormView):
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return HttpResponseRedirect(reverse("login"))
+        elif not request.user.is_developer:
+            return HttpResponseRedirect(reverse("profile", request.user.id))
         else:
             return super().get(request, *args, **kwargs)
 
+    def get_initial(self):
+        return {"developer": self.request.user.id}
+
     def form_valid(self, form):
+        if not self.request.user.is_developer:
+            return HttpResponse('Unauthorized', status=401)
         game = form.save()
         Payment.objects.get_or_create(user=self.request.user, game=game, amount=0)
         return super().form_valid(form)
@@ -149,6 +154,9 @@ class GameUpdateView(generic.UpdateView):
         else:
             return super().get(request, *args, **kwargs)
 
+    def get_initial(self):
+        return {"developer": self.request.user.id}
+
     def form_valid(self, form):
         if self.request.user != self.get_object().developer:
             return HttpResponse('Unauthorized', status=401)
@@ -157,6 +165,7 @@ class GameUpdateView(generic.UpdateView):
 
 
 def payment_view(request):
+    msg = "Your payment is IN PROCESS!"
     if request.GET.get("result", "error") == "success":
         if "success" in request.path:
             game_id = request.GET["pid"].split("-")[0]
@@ -198,7 +207,7 @@ class TagCreateView(generic.FormView):
 
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            return HttpResponseRedirect("/accounts/login")
+            return HttpResponseRedirect(reverse("login"))
         else:
             return super().get(request, *args, **kwargs)
 

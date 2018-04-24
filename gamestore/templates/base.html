@@ -40,10 +40,15 @@
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-tasks" style="margin-right: 0.5em;"></span> Developer <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                {% url "profile" request.user.id as profile_url %}
-                                <li {% if request.path == profile_url %}class="active"{% endif %}><a href="{{ profile_url }}"><span class="glyphicon glyphicon-stats" style="margin-right: 0.5em;"></span> Statistics </a></li>
-                                {% url "game_create" as game_create_url %}
-                                <li {% if request.path == game_create_url %}class="active"{% endif %}><a href="{{ game_create_url }}"><span class="glyphicon glyphicon-plus" style="margin-right: 0.5em;"></span> Add Game </a></li>
+                                {% if request.user.is_developer %}
+                                    {% url "profile" request.user.id as profile_url %}
+                                    <li {% if request.path == profile_url %}class="active"{% endif %}><a href="{{ profile_url }}"><span class="glyphicon glyphicon-stats" style="margin-right: 0.5em;"></span> Statistics </a></li>
+                                    {% url "game_create" as game_create_url %}
+                                    <li {% if request.path == game_create_url %}class="active"{% endif %}><a href="{{ game_create_url }}"><span class="glyphicon glyphicon-plus" style="margin-right: 0.5em;"></span> Add Game </a></li>
+                                {% else %}
+                                    {% url "switch_to_developer" as switch_url %}
+                                    <li {% if request.path == switch_url %}class="active"{% endif %}><a href="{{ switch_url }}"><span class="glyphicon glyphicon-console" style="margin-right: 0.5em;"></span> Become a Developer </a></li>
+                                {% endif %}
                             </ul>
                         </li>
                     </ul>

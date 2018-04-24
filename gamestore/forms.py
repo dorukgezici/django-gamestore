@@ -22,6 +22,9 @@ class CreateGameForm(forms.ModelForm):
     class Meta:
         model = Game
         fields = ["developer", "name", "url", "cover", "price", "tags"]
+        widgets = {
+            "developer": forms.HiddenInput()
+        }
 
 
 class CreateTagForm(forms.ModelForm):
