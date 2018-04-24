@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',
     # Disable Django's own staticfiles handling in favour of WhiteNoise, for
     # greater consistency between gunicorn and `./manage.py runserver`. See:
     # http://whitenoise.evans.io/en/stable/django.html#using-whitenoise-in-development
@@ -48,6 +49,8 @@ INSTALLED_APPS = [
     'bootstrapform',
     'cloudinary',
     'simple_email_confirmation',
+    'social_django',
+    'font_awesome',
     'gamestore',
     'api',
 ]
@@ -61,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware'
 ]
 
 ROOT_URLCONF = 'wsd2018project.urls'
@@ -187,8 +191,18 @@ EMAIL_HOST_USER = 'django.reinhardt.gamestore@gmail.com'
 EMAIL_HOST_PASSWORD = 'DjangoReinhardt123'
 EMAIL_PORT = 587
 
-# Activate Django-Heroku.
-django_heroku.settings(locals())
+SOCIAL_AUTH_FACEBOOK_KEY = '428106740936543'
+SOCIAL_AUTH_FACEBOOK_SECRET = 'a809665c92509ce9bf4ab9267066f0de'
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SITE_ID = 1
 
 # django-ajax-selects settings
 AJAX_SELECT_BOOTSTRAP = False
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())

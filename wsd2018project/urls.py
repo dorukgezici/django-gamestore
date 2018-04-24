@@ -15,6 +15,7 @@ urlpatterns = [
          name='password_reset_confirm'),
     path('accounts/reset-password-complete', auth_views.PasswordResetCompleteView.as_view(),
          name='password_reset_complete'),
+    path('oauth/', include('social_django.urls', namespace='social')),
     path('', include('gamestore.urls')),
     path('api/', include('api.urls')),
     path('ajax_select/', include(ajax_select_urls))

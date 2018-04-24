@@ -10,3 +10,5 @@ django-bootstrap-form==3.3
 django-ajax-selects==1.7.0
 cloudinary==1.11.0
 django-simple-email-confirmation==0.23
+social-auth-app-django==2.1.0
+django-font-awesome==4.6.1

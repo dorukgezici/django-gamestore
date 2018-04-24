@@ -20,6 +20,8 @@ django-bootstrap-form = "*"
 django-ajax-selects = "*"
 cloudinary = "*"
 django-simple-email-confirmation = "*"
+social-auth-app-django = "*"
+django-font-awesome = "*"
 
 [dev-packages]
 
