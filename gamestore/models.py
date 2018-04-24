@@ -47,7 +47,7 @@ class Score(models.Model):
         ordering = ['-value']
 
     def __str__(self):
-        return "{} by {}".format(self.value, self.player)
+        return "{} by {}".format(self.value, self.user)
 
 
 class GameState(models.Model):
@@ -60,7 +60,7 @@ class GameState(models.Model):
         ordering = ['-date']
 
     def __str__(self):
-        return "{}: {} by {}".format(self.date, self.game, self.player)
+        return "{}: {} by {}".format(self.date, self.game, self.user)
 
 
 class Payment(models.Model):
