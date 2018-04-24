@@ -3,7 +3,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
-from simple_email_confirmation.models import SimpleEmailConfirmationUserMixin
+from simple_email_confirmation.models import SimpleEmailConfirmationUserMixin, EmailAddress
 
 
 class User(SimpleEmailConfirmationUserMixin, AbstractUser):
@@ -11,6 +11,10 @@ class User(SimpleEmailConfirmationUserMixin, AbstractUser):
 
     def __str__(self):
         return self.username
+
+    def get_token(self):
+        email = EmailAddress.objects.get(user=self)
+        return str(email.key)
 
 
 class Tag(models.Model):

@@ -2,7 +2,7 @@
 {% load social_share %}
 
 {% block meta %}
-    <meta property="og:url" content="{{ request.path }}">
+    <meta property="og:url" content="{{ request.get_full_path }}">
     <meta property="og:type" content="website">
     <meta property="og:title" content="{{ object.name }}">
     <meta property="og:description" content="Check out or add JS games on Django-Reinhardt's Gamestore">
