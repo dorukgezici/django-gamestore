@@ -112,7 +112,7 @@ class GameView(generic.DetailView):
         obj = context["object"]
         scores = Score.objects.filter(game=obj)
         obj.scores = scores
-        obj.scores_array = ["#{}: {} by {}".format(i, score.value, score.player) for i, score in enumerate(scores)]
+        obj.scores_array = ["#{}: {} by {}".format(i, score.value, score.user) for i, score in enumerate(scores)]
         context["object"] = obj
         context["user"] = self.request.user
         return context
