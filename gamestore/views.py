@@ -130,8 +130,8 @@ class GameCreateView(generic.FormView):
             return super().get(request, *args, **kwargs)
 
     def form_valid(self, form):
-        Payment.objects.get_or_create(user=self.request.user, game_id=form.cleaned_data["game_id"], amount=0)
-        form.save()
+        game = form.save()
+        Payment.objects.get_or_create(user=self.request.user, game=game, amount=0)
         return super().form_valid(form)
 
 
