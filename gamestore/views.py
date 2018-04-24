@@ -154,6 +154,11 @@ class GameUpdateView(generic.UpdateView):
         else:
             return super().get(request, *args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["game"] = self.get_object()
+        return context
+
     def get_initial(self):
         return {"developer": self.request.user.id}
 
@@ -162,6 +167,14 @@ class GameUpdateView(generic.UpdateView):
             return HttpResponse('Unauthorized', status=401)
         form.save()
         return super().form_valid(form)
+
+
+@login_required
+def delete_game(request, pk):
+    game = Game.objects.get(id=pk)
+    if request.user == game.developer:
+        game.delete()
+    return HttpResponseRedirect("/")
 
 
 def payment_view(request):
