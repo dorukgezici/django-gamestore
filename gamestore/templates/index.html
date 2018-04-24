@@ -26,15 +26,13 @@
             </div>
         </div>
     </div>
-    <div class="alert">
-        {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    </div>
+    {% if messages %}
+        <div class="col-md-12">
+            {% for message in messages %}
+                <div class="alert alert-success">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
     <div id="games" class="container-fluid">
         <div class="row">
             {% for game in object_list %}
