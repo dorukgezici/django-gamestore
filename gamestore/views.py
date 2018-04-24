@@ -143,13 +143,13 @@ class GameUpdateView(generic.UpdateView):
     def get(self, request, *args, pk=None, **kwargs):
         if not request.user.is_authenticated:
             return HttpResponseRedirect("/accounts/login")
-        elif Game.objects.get(id=pk).developer.user != request.user:
+        elif Game.objects.get(id=pk).developer != request.user:
             return HttpResponse('Unauthorized', status=401)
         else:
             return super().get(request, *args, **kwargs)
 
     def form_valid(self, form):
-        if self.request.user != self.get_object().developer.user:
+        if self.request.user != self.get_object().developer:
             return HttpResponse('Unauthorized', status=401)
         form.save()
         return super().form_valid(form)
