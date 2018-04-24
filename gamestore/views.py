@@ -125,12 +125,13 @@ class GameCreateView(generic.FormView):
 
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            return HttpResponseRedirect("/accounts/login")
+            return HttpResponseRedirect(reverse("login"))
         else:
             return super().get(request, *args, **kwargs)
 
     def form_valid(self, form):
-        form.save()
+        game = form.save()
+        Payment.objects.get_or_create(user=self.request.user, game=game, amount=0)
         return super().form_valid(form)
 
 
@@ -142,7 +143,7 @@ class GameUpdateView(generic.UpdateView):
 
     def get(self, request, *args, pk=None, **kwargs):
         if not request.user.is_authenticated:
-            return HttpResponseRedirect("/accounts/login")
+            return HttpResponseRedirect(reverse("login"))
         elif Game.objects.get(id=pk).developer != request.user:
             return HttpResponse('Unauthorized', status=401)
         else:
