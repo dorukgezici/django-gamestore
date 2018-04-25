@@ -61,6 +61,13 @@
 	border-radius: 3px;
 }
 
+.gametag:hover {
+	text-decoration: none;
+	color: #ffffff;
+	background-color: #2c3e50;
+}
+
+
 table a:not(.btn),
 .table a:not(.btn) {
     text-decoration: none;

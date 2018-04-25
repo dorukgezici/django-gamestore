@@ -52,8 +52,8 @@
                             <div>
                                 <div style="margin: 10px 0 0 0; overflow-x: hidden;">
                                     <div style="width: 10000%;">
-                                    {% for tag in game.tagnames %}
-                                        <div class="gametag">{{ tag }}</div>
+                                    {% for tag in game.gtags %}
+                                        <a class="gametag" href="/?tags=|{{ tag.pk }}|">{{ tag.name }}</a>
                                     {% endfor %}
                                     </div>
                                 </div>
