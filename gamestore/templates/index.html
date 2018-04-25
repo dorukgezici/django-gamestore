@@ -49,6 +49,15 @@
                                     <img src="{% static "images/default_cover.png" %}" alt="Game Cover">
                                 {% endif %}
                             </div>
+                            <div>
+                                <div style="margin: 10px 0 0 0; overflow-x: hidden;">
+                                    <div style="width: 10000%;">
+                                    {% for tag in game.tagnames %}
+                                        <div class="gametag">{{ tag }}</div>
+                                    {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="panel-footer">
                             <div class="row">

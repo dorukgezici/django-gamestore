@@ -44,3 +44,17 @@
 	text-decoration: none;
 	background-color: #1a242f;
 }
+
+
+.gametag {
+	color: #ffffff;
+	background-color: #95a5a6;
+	display: inline-block;
+	white-space: nowrap;
+	text-align: center;
+
+	margin: 5px 0 0 0;
+	padding: 3px 5px;
+	font-size: 14px;
+	border-radius: 3px;
+}

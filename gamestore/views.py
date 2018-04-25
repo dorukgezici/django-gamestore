@@ -66,6 +66,11 @@ class IndexView(generic.ListView):
             else:
                 game.possessed = Payment.objects.filter(user=self.request.user).filter(game=game).exists()
 
+            tagnames = []
+            for tag in game.tags.all():
+                tagnames.append(tag.name)
+            game.tagnames = tagnames
+
             if SQLITESAFE:
                 game.checksum = 0
                 continue
