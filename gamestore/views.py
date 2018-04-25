@@ -265,6 +265,7 @@ class ProfileView(generic.DetailView):
         context["my_games"] = my_games
         if self.request.user.is_developer:
             context["developer"] = self.request.user
+            context["token"] = self.request.user.get_token()
         else:
             context["developer"] = False
         return context
