@@ -3,7 +3,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
-from simple_email_confirmation.models import SimpleEmailConfirmationUserMixin, EmailAddress
+from simple_email_confirmation.models import SimpleEmailConfirmationUserMixin, EmailAddress, EmailAddressManager
 
 
 class User(SimpleEmailConfirmationUserMixin, AbstractUser):
@@ -13,7 +13,11 @@ class User(SimpleEmailConfirmationUserMixin, AbstractUser):
         return self.username
 
     def get_token(self):
-        email = EmailAddress.objects.get(user=self)
+        try:
+            email = EmailAddress.objects.get(user=self)
+        except EmailAddress.DoesNotExist:
+            key = EmailAddress._default_manager.generate_key()
+            email = EmailAddress.objects.create(user=self, key=key)
         return str(email.key)
 
 
