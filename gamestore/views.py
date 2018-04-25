@@ -269,6 +269,8 @@ class ProfileView(generic.DetailView):
         context["payments"] = payments
         context["total_spent"] = sum(payment.amount for payment in payments)
         my_games = Game.objects.filter(developer=self.request.user)
+        for game in my_games:
+            game.sales = Payment.objects.filter(game=game).filter(user=self.request.user).count()
         context["my_games"] = my_games
         if self.request.user.is_developer:
             context["developer"] = self.request.user

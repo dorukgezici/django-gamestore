@@ -60,3 +60,12 @@
 	font-size: 14px;
 	border-radius: 3px;
 }
+
+table a:not(.btn),
+.table a:not(.btn) {
+    text-decoration: none;
+}
+
+.table-bordered {
+	border-radius: 4px;
+}

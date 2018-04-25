@@ -2,55 +2,79 @@
 
 {% block body %}
     <div class="container center">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+        {% if developer %}
+            <div id="apiinfo" class="container-fluid">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h4>INFO</h4>
+                        <h2 class="panel-title"><a data-toggle="collapse" href="#collapseApi">REST API</a></h2>
                     </div>
-                    <div class="panel-body">
-                        <p>Your account has the role -> {% if developer %}DEVELOPER{% else %}PLAYER{% endif %}</p>
-                        {% if token %}
-                            <hr>
-                            <h3>REST API</h3>
-                            <p>Token: {{ token }}</p>
-                            <ul class="list-group">
-                                <li class="list-group-item"><a href="{% url "games" %}?token={{ token }}">Get All Games</a></li>
-                                <li class="list-group-item"><a href="{% url "leaderboard" 1 %}?token={{ token }}">Get Leaderboard for Game ID</a></li>
-                                <li class="list-group-item"><a href="{% url "my_games" %}?token={{ token }}">Get My Games as the Developer</a></li>
-                            </ul>
-                        {% endif %}
-                    </div>
-                    {% if not developer %}
-                        <div class="panel-footer">
-                            <p>Switch to developer <a href="{% url "switch_to_developer" %}">here!</a></p>
+                    <div id="collapseApi" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            {% if token %}
+                                <p>Token: {{ token }}</p>
+                                <div class="row">
+                                    <div class="col-md-4"><a class="btn btn-default" style="margin-top: 10px"; href="{% url "games" %}?token={{ token }}">Get all games</a></div>
+                                    <div class="col-md-4"><a class="btn btn-default" style="margin-top: 10px"; href="{% url "leaderboard" 1 %}?token={{ token }}">Get leaderboard of a game</a></div>
+                                    <div class="col-md-4"><a class="btn btn-default" style="margin-top: 10px"; href="{% url "my_games" %}?token={{ token }}">Get my games as developer</a></div>
+                                </div>
+                            {% else %}
+                                <p>You don't have a token.</p>
+                            {% endif %}
                         </div>
-                    {% endif %}
+                        <!-- <div class="panel-footer"></div> -->
+                    </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
+        
         <div class="row">
-            <div class="col-md-4 col-md-offset-1">
+            <div class="col-md-6">
                 <h1>My Games <small>{{ my_games|length }} Games</small></h1>
                 <hr>
-                <ul class="list-group list-group-flush">
-                    {% for game in my_games %}
-                        <li class="list-group-item">
-                            <a class="text-primary" href="{% url "game" game.id %}">{{ game }}</a><a class="text-primary" href="{% url "game_update" game.id %}"><span class="glyphicon glyphicon-edit" style="margin-left: 1.5em;"></span> Edit </a>
-                        </li>
-                    {% endfor %}
-                </ul>
+                {% if developer %}
+                    {% if my_games %}
+                        <div class="panel panel-default" style="text-align: left;">
+                            <table class="table table-bordered">
+                                {% for game in my_games %}
+                                    <tr>
+                                        <td><a class="text-primary" href="{% url "game" game.id %}">{{ game }}</a></td>
+                                        <td>{{ game.sales }} player{% if game.sales > 1 %}s{% endif %}</td>
+                                        <td><a class="text-primary" href="{% url "game_update" game.id %}"><span class="glyphicon glyphicon-edit" style="margin-left: 1.5em;"></span> Edit </a></td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    {% else %}
+                        <p>You have published no game yet.</p>
+                        {% url "game_create" as game_create_url %}
+                        <a class="btn btn-primary" href="{{ game_create_url }}">publish your first game</a>
+                    {% endif %}
+                {% else %}
+                    <div>
+                        <p>You are not registered as developer.</p>
+                           <a class="btn btn-primary" href="{% url "switch_to_developer" %}">become developer</a>
+                    </div>
+                {% endif %}
             </div>
             <div class="col-md-6">
-                <h1>My Purchases <small>Total Spent: {{ total_spent }}$</small></h1>
+                <h1>My Purchases <small>Total Spent: {{ total_spent }}€</small></h1>
                 <hr>
-                <ul class="list-group list-group-flush">
-                    {% for payment in payments %}
-                        <li class="list-group-item">
-                            <a class="text-primary" href="{% url "game" payment.game.id %}">{{ payment }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
+                {% if payments %}
+                    <div class="panel panel-default" style="text-align: left;">
+                        <table class="table table-bordered">
+                            {% for payment in payments %}
+                                <tr>
+                                    <td><a class="text-primary" href="{% url "game" payment.game.id %}">{{ payment.game.name }}</a></td>
+                                    <td>{{ payment.date }}</td>
+                                    <td>{{ payment.amount }}€</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% else %}
+                    <p>You have purchased no game yet.</p>
+                    <a class="btn btn-primary" href="/">see our catalog</a>
+                {% endif %}
             </div>
         </div>
     </div>
