@@ -16,7 +16,7 @@
             </div>
             <div id="collapseSearch" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <form action="" method="GET">
+                    <form method="GET">
                         {{ form|bootstrap }}
                         <a class="btn btn-default" data-toggle="collapse" href="#collapseSearch">Cancel</a>
                         <button class="btn btn-primary">Search</button>
@@ -78,12 +78,12 @@
                                                            value="//{{ request.get_host }}{% url "payment_error" %}">
                                                     <input type="hidden" name="checksum"
                                                            value="{{ game.checksum }}">
-                                                    <input type="hidden" id="id_amount" name="amount" value="{{ game.price }}">
-                                                    <button type="submit" id="pay-button" class="btn btn-primary" >BUY FOR {{ game.price }}€</button>
+                                                    <input type="hidden" name="amount" value="{{ game.price }}">
+                                                    <button type="submit" class="btn btn-primary" >BUY FOR {{ game.price }}€</button>
                                                 </form>
                                             {% endif %}
                                         {% else %}
-                                            <a href="{% url "login" %}" id="pay-button" class="btn btn-primary" >BUY FOR {{ game.price }}€</a>
+                                            <a href="{% url "login" %}" class="btn btn-primary" >BUY FOR {{ game.price }}€</a>
                                         {% endif %}
                                     </div>
 
