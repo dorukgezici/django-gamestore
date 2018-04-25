@@ -116,3 +116,22 @@ Here is a non-exhaustive list of the optional features we are going to implement
 **April 26th: Final submission.**
 
 **April 26th - 28th: Project demonstrations.**
+
+
+## Some retrospective notes
+
+We are quite happy with how the development went.
+Though we were only two people working in this project, since the third guy said he felt overwhelmed by the workload and then stopped replying to the messages, we have been able to implement most of the extra features listed in our early project plan.
+
+Concerning project management tools, we didn't use the online tools as we met physically, we just used a board of the next features to implement, and checked them while coding, and when all features were implemented we decided the next ones with the project plan and the advancement of the project.
+A huge part of the work has been done while working in the same room, and some parts individually.
+
+Concerning the repartition of the work, it has been quite equal, though some parts have been mostly done by one of the teammates: Doruk was more comfortable implementing features like email verification, third-party authentication, API, thanks to previous experience, and Louis made most of the game, also thanks to some experience in game development.
+
+
+## Testing the game store
+
+There shouldn't be any problem to test the game store. You can create an account, either as a developer or normal account (this can be changed later into developer account), and then purchase and play games, or even add some if you are a developer. The interface is easy to use so it shouldn't be a problem.
+You can play with the features like the advanced search: try out different combinations and parameters.
+
+More information about the features in [final_report.md](final_report.md).
