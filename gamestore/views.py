@@ -10,6 +10,7 @@ from django.db import connection
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.contrib import messages
+from simple_email_confirmation.models import EmailAddress
 
 # /!\ Development only
 # Set to True to test with sqlite
@@ -247,7 +248,8 @@ class RegistrationView(generic.FormView):
 
 
 def confirm_email(request, key):
-    request.user.confirm_email(key)
+    email = EmailAddress.objects.get(key=key)
+    email.user.confirm_email(key)
     messages.add_message(request, messages.INFO, "Email verified!")
     return HttpResponseRedirect("/")
 
