@@ -3,6 +3,8 @@ Project Plan
 
 #### URL: [django-reinhardt.herokuapp.com](https://django-reinhardt.herokuapp.com)
 
+For the final report, see [final_report.md](final_report.md)
+
 ## Group
 
 - Name: *Django Reinhardt* (for the [Jazz singer](https://en.wikipedia.org/wiki/Django_Reinhardt))
@@ -96,7 +98,7 @@ Here is a non-exhaustive list of the optional features we are going to implement
 - [x] Simple page to play a game
 - [x] Advanced features of playing: save & load, scores
 - [x] Search a game
-- [ ] Simple developer stats
+- [x] Simple developer stats
 
 ### 5th week (A 9th - A 15th)
 
@@ -106,9 +108,9 @@ Here is a non-exhaustive list of the optional features we are going to implement
 
 ### 6th week (A 16th - A 22nd)
 
-- [ ] 3rd party login
-- [ ] Sharing
-- [ ] Enhanced dev stats
+- [x] 3rd party login (Facebook)
+- [x] Sharing (Facebook)
+- [ ] Enhanced dev stats -> this feature has been abandoned (not enough time)
 - [x] Enhanced game search
 
 **April 26th: Final submission.**
