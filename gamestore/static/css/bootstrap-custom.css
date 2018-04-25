@@ -32,14 +32,16 @@
 	background-color: #1a242f;
 }
 
-.panel-title > a
+.panel-title > a,
+.panel-title > div > a
 {
 	display: block;
 	padding: 10px 15px;
     margin: -10px -15px;
 }
 
-.panel-title > a:hover
+.panel-title > a:hover,
+.panel-title > div > a:hover
 {
 	text-decoration: none;
 	background-color: #1a242f;

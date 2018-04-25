@@ -50,10 +50,10 @@ INSTALLED_APPS = [
     'cloudinary',
     'simple_email_confirmation',
     'social_django',
-    'django_social_share',
     'font_awesome',
     'gamestore',
     'api',
+    'django_social_share',
 ]
 
 MIDDLEWARE = [
