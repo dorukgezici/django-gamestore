@@ -1,38 +1,19 @@
 TIE-23506 Web Software Development
-TIE-23500 Web-ohjelmointi
  
 Spring 2018 course project  
 Online game store for JavaScript games
 
-Your group (student numbers, names, TUT emails)
- 1.
- 2.
- 3.
- 
-# Final report and updating the project plan
-Now it is time to update your project plan and write your final report. Read on for instructions!
+- Group code: **g-056**
+- Students in the group:
 
-## If you find problems with this document
- It is possible that this document has errors, or is not clear in its wording. If you have problems with this document email <mikko.nurminen@tut.fi> as soon as possible.
+| Name         | Email                      | Student id |
+|:------------ |:--------------------------:| ----------:|
+| Doruk Gezici | ali.gezici@student.tut.fi  | 278090     |
+| Louis Sugy   | louis.sugy@student.tut.fi  | 273435     |
  
-## Updating your project plan
-Update your project plan to reflect what your group actually did, and how the work of your group progressed. Just be honest, this course is about learning. The project plan is in the README.md-file in your group's GitLab repository, 
- 
-Report where do you feel that you were successful and where you had problems. Give sufficient details, this will in part influence the non-functional points awarded.
- 
-Report what choices you considered for the design and implementation of your game store and game. What were the reasons one option was chosen and others rejected?
- 
-Report how you divided the work between the team members - who did what. Was the work divided equally? If someone was supposed to do something, but didn’t, mark this down, too.
- 
-If a specific account/password (e.g. game developer) is required to try out and test some aspects of the work, please provide the details.
- 
-Make sure your names, emails and student IDs are in the document. Just saying this to make sure. :-)
 
-Remember to commit your finalized project plan! It will be a part of the grading of your course project.
- 
 ## Filling this final report
-Save this file as final_report.md to the root directory of your group repo. The format is Markdown, and it shall remain so!
- 
+
 In this file, your group reports the features you have implemented, how you implemeted them, and how many points your group thinks the implementation is worth. You have to write a justification for each of the features listed! The feature list is the same as in the course project document.
  
 For all the features and different parts of them the following questions (or some permutation of them) has to be answered:
