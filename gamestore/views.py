@@ -13,16 +13,24 @@ from django.contrib import messages
 from simple_email_confirmation.models import EmailAddress
 
 # /!\ Development only
-# Set to True to test with sqlite
+# Set to True to test with sqlite.
+# This is due to PostgreSQL-specific code
 SQLITESAFE = False
 
 
 class IndexView(generic.ListView):
+    """The view to display the catalog of games on homepage.
+    """
+
     model = Game
     template_name = "index.html"
     paginate_by = 12
 
+
     def get_queryset(self):
+        """Get all the games and filter them according to the GET parameters
+        """
+
         qs = Game.objects.all()
 
         try:
@@ -53,11 +61,14 @@ class IndexView(generic.ListView):
         else:
             qs = qs.order_by("name")
 
-        # page = int(self.request.GET.get("page", "1"))
-        # qs = qs[PAGESIZE*(page-1):PAGESIZE*(page-1)+PAGESIZE]
         return qs
 
+
     def get_context_data(self, *, object_list=None, **kwargs):
+        """Associate to the games some data needed in the template:
+           payment info, possessed or not, tags.
+        """
+
         context = super().get_context_data(**kwargs)
         objects = context["object_list"]
         for game in objects:
@@ -94,10 +105,16 @@ class IndexView(generic.ListView):
 
 
 class GameView(generic.DetailView):
+    """View where the user can play a game that they have purchased and see scores.
+    """
+
     model = Game
     template_name = "game.html"
 
     def get(self, request, *args, pk=None, **kwargs):
+        """Get the requested game if the user is authenticated and has purchased it.
+        """
+
         if not request.user.is_authenticated:
             possessed = False
         else:
@@ -108,7 +125,11 @@ class GameView(generic.DetailView):
         else:
             return HttpResponseNotFound("This game doesn't exist or you don't own it.")
 
+
     def get_context_data(self, **kwargs):
+        """Associate some data to the game object: scores
+        """
+
         context = super().get_context_data(**kwargs)
         obj = context["object"]
         scores = Score.objects.filter(game=obj)
@@ -120,11 +141,17 @@ class GameView(generic.DetailView):
 
 
 class GameCreateView(generic.FormView):
+    """View where a developer can create a game.
+    """
+
     form_class = CreateGameForm
     template_name = "game_create.html"
     success_url = "/"
 
     def get(self, request, *args, **kwargs):
+        """Shows the form to developers, redirects non-developer users to
+           their profile page.
+        """
         if not request.user.is_authenticated:
             return HttpResponseRedirect(reverse("login"))
         elif not request.user.is_developer:
@@ -135,8 +162,11 @@ class GameCreateView(generic.FormView):
     def get_initial(self):
         return {"developer": self.request.user.id}
 
+
     def form_valid(self, form):
-        if not self.request.user.is_developer:
+        """Creates the game if the user is a developer.
+        """
+        if (not self.request.user.is_developer) or form.cleaned_data["developer"] != self.request.user:
             return HttpResponse('Unauthorized', status=401)
         game = form.save()
         Payment.objects.get_or_create(user=self.request.user, game=game, amount=0)
@@ -144,12 +174,17 @@ class GameCreateView(generic.FormView):
 
 
 class GameUpdateView(generic.UpdateView):
+    """Allows the developer of a game to edit or delete their game.
+    """
+
     model = Game
     form_class = CreateGameForm
     template_name = "game_update.html"
     success_url = "/"
 
     def get(self, request, *args, pk=None, **kwargs):
+        """Checks that the user is authenticated and is the owner of the game.
+        """
         if not request.user.is_authenticated:
             return HttpResponseRedirect(reverse("login"))
         elif Game.objects.get(id=pk).developer != request.user:
@@ -166,6 +201,8 @@ class GameUpdateView(generic.UpdateView):
         return {"developer": self.request.user.id}
 
     def form_valid(self, form):
+        """Checks again that the user is the developer of the game and updates.
+        """
         if self.request.user != self.get_object().developer:
             return HttpResponse('Unauthorized', status=401)
         form.save()
@@ -181,6 +218,8 @@ def delete_game(request, pk):
 
 
 def payment_view(request):
+    """Displays the status of a payment.
+    """
     msg = "Your payment is IN PROCESS!"
     if request.GET.get("result", "error") == "success":
         if "success" in request.path:
@@ -217,6 +256,9 @@ def example_game(request):
 
 
 class TagCreateView(generic.FormView):
+    """Allows to create tags. This view is meant to be used in a popup
+       in game creation view, but can also be accessed by url.
+    """
     form_class = CreateTagForm
     template_name = "tag_create.html"
     success_url = "/tag/add"
@@ -233,6 +275,8 @@ class TagCreateView(generic.FormView):
 
 
 class RegistrationView(generic.FormView):
+    """Registration of a new user.
+    """
     form_class = CustomUserCreationForm
     template_name = "registration/signup.html"
     success_url = "/"
@@ -257,6 +301,9 @@ def confirm_email(request, key):
 
 
 class ProfileView(generic.DetailView):
+    """Profile page with purchased games, and for developer stats on their
+       published games.
+    """
     model = User
     template_name = "profile.html"
 
@@ -279,6 +326,8 @@ class ProfileView(generic.DetailView):
 
 @login_required
 def switch_to_developer(request):
+    """Allows a non-developer user to become a developer.
+    """
     request.user.is_developer = True
     request.user.save()
     return HttpResponseRedirect(reverse("profile", kwargs={"pk": request.user.id}))
