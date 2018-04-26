@@ -17,7 +17,7 @@
     <body>
         {{ form.media }}
         
-        <form method="POST">
+        <form action="" method="POST">
             {% csrf_token %}
             {{ form|bootstrap }}
             <button class="btn btn-primary">Add tag</button>
