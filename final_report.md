@@ -56,19 +56,62 @@ We have also used some libraries and plugins:
 
 #### Signs of quality
 ###### Reusability
-How does your code reflect this aspect? Give examples!
+Though we have not made extensive use of division into components (except for a separate app for API), individual fragments of code can easily be reused since the MTV design pattern divides the code in a practical and logical way.
+
+For example, one might want to implement a website with an advanced search feature, they can use almost directly the pieces of the template and the view related to this feature, just changing some names of fields to adapt to other objects.
+
 ###### Modularity
-How does your code reflect this aspect? Give examples!
+The code follows strictly the MTV design pattern and the DRY principles.
+Therefore features can be added without any changes, and changes in the existing code generally imply very few modifications (the only sensible part being models, altering them can obviously break features).
+
 ###### Versatile use of Django’s features
-How does your code reflect this aspect? Give examples!
+
+ - The views are class-based views (`ListView`, `DetailView`, `FormView`, `CreateView`, `UpdateView`, etc)
+ - The authentication system is a builtin (we extend `AbstractUser` class)
+ - We use template inclusion to have consistent style, follow DRY principle and reduce amount of code
+ - We use some plugins for extra features and better user experience
+
 ###### Sensible URL scheme
-How does your code reflect this aspect? Give examples!
+The URL scheme is organized in hierarchical way and is meant to be simple and human readable.
+
+The URL of the website leads to the catalog of games which is the most important pages. The other pages are organized in the following way:
+
+ - `admin`
+ - `signup`
+ - `activate/<key>`
+ - accounts
+    - `accounts/login`
+    - `accounts/logout`
+    - `accounts/reset-password`
+    - `accounts/reset-password-done`
+    - `accounts/reset-password-confirm/<uidb64>/<token>`
+ - profile
+    - `profile/<pk>`
+    - `profile/switch-to-developer`
+ - game
+    - `game/<pk>`
+    - `game/add`
+    - `game/update/<pk>`
+    - `game/delete/<pk>`
+ - tag
+    - `tag/add`
+ - payment
+    - `payment/success`
+    - `payment/cancel`
+    - `payment/error`
+
 ######  Security
-How does your code reflect this aspect? Give examples!
+The authentication system provided by Django is quite secure. Access rights are checked in the views, and forms include a session token.
+
+Django also protects against SQL injections, XSS, DDoS, etc.
+
 ######  Crash & idiot proof
-How does your code reflect this aspect? Give examples!
+Not saying that our friends are idiots, we did let friends try the store to see if something was not clear or if they could break some features.
+
+In case you try to access a resource you're not allowed to (for example if somebody shared the url of a game you don't own), an error page will be displayed.
+
 ###### Testing your game store
-How does your code reflect this aspect? Give examples!
+We first tested all the main use cases of our system, and then, as explained in the point above, we gave the link to a few friends to have feedback and report bugs.
  
 #### Mandatory requirements
 ##### Minimum functional requirements (mandatory)
