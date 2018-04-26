@@ -29,7 +29,7 @@ We have tested the service on the following browsers without any issue:
  - Safari on MacOS X and iOS
 
 #### Code should be commented well
-The views and models of the `gamestore` project are commented, and the templates have IDs to be easily readable.
+The views and models of the `gamestore` app are commented, and the templates have IDs to be easily readable.
 
 #### Write your own code
 We have written our own code except for some components for extra features which would have been too time-consuming:
