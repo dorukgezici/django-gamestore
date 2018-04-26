@@ -29,7 +29,7 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 SECRET_KEY = "l1o5frp%a^li6j^o1dpc11uzs$jp74)aebk#wmvr2bk^he(my6"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = (sys.argv[1] == 'runserver')
+DEBUG = True  # (sys.argv[1] == 'runserver')
 
 # Application definition
 
