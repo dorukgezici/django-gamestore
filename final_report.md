@@ -24,14 +24,36 @@ Give enough information for the grading to happen based on your report. For feat
 
 #### Generic requirements  
 ###### Valid CSS and HTML
-How does your code reflect this aspect? How did you validate?
+We have tested the HTML with [W3 Nu Html Checker](https://validator.w3.org/nu/). It helped us solve some issues like multiple time the same id because of loops, empty properties, etc.
+The code is not 100% valid because of some Django plugins and because of spaces in Heroku paths.
+
+We have checked the CSS with [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/) without any issue.
+
 ###### The service should work on modern browsers
-How does your code reflect this aspect? Tested on what browsers?
+We have tested the service on the following browsers without any issue:
+
+ - Google Chrome on Windows
+ - Firefox on Windows and Android
+ - Safari on MacOS X
+
 ###### Code should be commented well
 How does your code reflect this aspect? Give examples!
+
 ###### Write your own code
-How does your code reflect this aspect? Give examples!
- 
+We have written our own code except for some components for extra features which would have been too time-consuming:
+
+ - third party authentication (Social Django)
+ - social-media sharing (Django Social Share)
+ - email confirmation (Simple Email Confirmation)
+
+We have also used some libraries and plugins:
+
+ - Bootstrap
+ - jQuery
+ - Cloudinary
+ - Ajax Selects
+ - Font Awesome
+
 #### Signs of quality
 ###### Reusability
 How does your code reflect this aspect? Give examples!

@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib.auth import views as auth_views
 from django.views.static import serve
 from ajax_select import urls as ajax_select_urls
+from django.shortcuts import render_to_response
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -18,7 +19,8 @@ urlpatterns = [
     path('oauth/', include('social_django.urls', namespace='social')),
     path('', include('gamestore.urls')),
     path('api/', include('api.urls')),
-    path('ajax_select/', include(ajax_select_urls))
+    path('ajax_select/', include(ajax_select_urls)),
+    path('privacy_policy', lambda _: render_to_response("privacy_policy.html"), name="privacy_policy")
 ]
 
 urlpatterns += [
