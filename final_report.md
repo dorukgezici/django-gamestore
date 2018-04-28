@@ -120,7 +120,7 @@ The authentication uses Django's authentication system, the template is override
 Cf points above about registration and authentication.
 
 #### Email validation (max. +100 points)
-Email validation is done through the app `simple_email_confirmation`. The class `User` inherits `SimpleEmailConfirmationUserMixin` and implements a method `get_token`.
+Email validation is done through the app `simple_email_confirmation`. The class `User` inherits `SimpleEmailConfirmationUserMixin` and creates a new table on the database with an activation token for every new user.
 
 Email validation is present but we didn't restrict features to validated accounts because we understand that testers would like to be able to use a fake email to avoid spam.
  
@@ -167,7 +167,7 @@ If the game sens a correct `SETTING` message, the game will be *fully responsive
 #### As a player: see game high scores and record their score
 The scores are recorded when the game sends them to the store, and displayed on the game page. The best scores are displayed and a button allows to show a modal window with all scores in a scrollable area.
 
-Currently, the page needs to be reloaded to have the last scores (we would have changed that with AJAX with more time).
+Currently, the page needs to be reloaded to have the last scores (we would have changed that with AJAX if we had more time).
 
 #### As a player: Security restrictions, e.g. player is only allowed to play the games they’ve purchased
 The player is only allowed to play the games they have purchased (cf `GameView.get`).
@@ -191,7 +191,7 @@ All these security restrictions are implemented in the view. They prevent both f
 ### Game/service interaction (mandatory 100-200 points)
 We should get all the 200 points as the service is fully implemented and tested with the other groups' games.
 
-Game/service interaction is handled by JavaScript in `gamestore/templates/message_receiver.html` which then uses the app `api`. Some cases will be described below.
+Game/service interaction is handled by JavaScript in `gamestore/templates/message_receiver.html` which then uses our django app `api`. Some cases will be described below.
 
 #### Submitting high score's from the game using PostMessage
 The javascript function `receiveMessage` in `gamestore/templates/message_receiver.html` calls the function `saveGamescore` which uses the API (view `save_gamescore` of the app `api`) to save a score.
@@ -204,7 +204,7 @@ A similar system is used to save game states with the model `GameState`.
 As messages from game to service, the messages from service to game are also handled with JS in `gamestore/templates/message_receiver.html`, and use the `api` app to access data if needed (when loading a previously saved gama state for example).
  
 ### Quality of Work (mandatory 100-200 points)  
-We should get 175-200 points for a good use of the framework and a good overall quality of code.
+We should get 180-200 points for a good use of the framework and a good overall quality (very clear, easy on the eyes) of code.
 
 #### Quality of code (structure of the application, comments)
 The structure of the application respects the MTV design pattern and DRY principle. Also the html and css are separated, except for some exceptional properties in the html. The REST API has been written as a separate app.
@@ -255,7 +255,7 @@ The fun factor has been guaranted by watching friends play it and balancing the 
 We should get 100 points for this feature. The implementation was explained previously in this document (JavasScript function, using the API to write and read the model `GameState`).
  
 #### 3rd party login (0-100 points)
-We should get 80-100 points.
+We should get 100 points. Facebook login fully works and set on production mode in the Facebook Developers panel.
 
 The feature was implemented with the help of the plugin Social Django.
  
@@ -270,7 +270,7 @@ We should get 50 points (if not more, that's quite a lot of work actually).
 This has been made with the help of Bootstrap and personal code (making the game page fully responsive with an iframe on content which can be responsive or fixed size was tough).
  
 #### Social media sharing (0-50 points)
-We should get 40-50 points.
+We should get 40-50 points. We have added metadata tags in the html of the shared game view.
 
 This feature is available on game view, and has been implemented with the help of the plugin Django Social Share.
 
