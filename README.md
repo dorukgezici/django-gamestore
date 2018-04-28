@@ -25,9 +25,11 @@ For the final report, see [final_report.md](final_report.md)
 
 Here are details about some of the features that we will implement (most of the features don't require any further explanation):
 
-- We will extend the class `AbstractUser` to create the `Player` class ;
-- The developer will be a player with some privileges, so we will implement `Developer` class with a one-to-one relation to `Player` ;
-- Email validation -> Django's Console Backend ;
+- We will extend the class `AbstractUser` to create the `User` class ;
+- The developer will be a user with some privileges, so we will have a `is_developer` BooleanField on our `User` class ;
+- Email validation -> Gmail SMTP Server ;
+- For communication with games, we will have `Score` and `GameState` models for leaderboard & saving/loading ;
+- We will have `Payment` model to keep track of who buys and owns the games for how much ;
 - We will implement a **search function**: keywords, tags ;
 - We will have a `Tag` model with a many-to-many relation to `Game` model, so that it makes the search easier ;
 - Developer statistics: sales, number of downloads.
